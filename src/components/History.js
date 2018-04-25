@@ -2,6 +2,8 @@ import React from 'react';
 import PastToDo from './PastToDo';
 
 class History extends React.Component {
+
+
   render () {
     return (
       <div className="History column">
@@ -9,7 +11,12 @@ class History extends React.Component {
         <PastToDo
           date={'Sept'}
           text={'Get a job'}
-          status={'false'}
+          status={true}
+        />
+        <PastToDo
+          date={'Sept'}
+          text={'Eat a good pizza'}
+          status={false}
         />
       </div>
     )

@@ -2,6 +2,7 @@
   --main-color: #f4f4f4;
   --secondary-color: #f0f0f0;
   --black-color: #333333;
+  --gray-color: #888888;
 }
 
 body {
@@ -50,6 +51,7 @@ body {
   cursor: pointer;
 }
 
+/* HISTORY */
 .History {
   width: 30vw;
   background-color: var(--secondary-color);
@@ -57,8 +59,23 @@ body {
 }
 
 .PastToDo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--main-color);
-  border: 2px solid var(--black-color);
+  border: 1px solid var(--black-color);
   width: 80%;
   height: 100px;
+  margin: 10px;
+}
+
+.todo-text {
+  color: var(--gray-color);
+  font-size: 1.6rem;
+  margin: .5rem;
+}
+
+.todo-date {
+  text-align: right;
+  margin: .5rem;
 }
