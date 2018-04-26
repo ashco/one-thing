@@ -21,7 +21,6 @@ class App extends Component {
     }
   }
 
-
   handleSubmit = (unix, value, status) => {
     this.setState(() => ({
       todos: [{
@@ -54,10 +53,6 @@ class App extends Component {
   render() {
     const { todos } = this.state;
     const currentUnix = getCurrentUnix();
-    // const todayTodo = typeof todos[0] === 'undefined'
-    //   ? false
-    //   : sameDateCheck(currentUnix, todos[0].unix);
-
     let todayTodo = false;
 
     if (typeof todos[0] !== 'undefined') {
@@ -70,27 +65,6 @@ class App extends Component {
       todayTodo = 'complete';
     }
 
-    // console.log(sameDateCheck(currentUnix, todos[0].unix));
-    // console.log(todos[0]);
-
-    // if (typeof todos[0] === 'undefined') {
-    //   todayTodo = null;
-    // }
-    // else if (sameDateCheck(currentUnix, todos[0].unix) && todos[0].status === false) {
-    //   todayTodo = 'incomplete';
-    // }
-    // else if (sameDateCheck(currentUnix, todos[0].unix && todos[0].status === true)) {
-    //   todayTodo = 'complete';
-    // }
-    // else {
-    //   todayTodo = null;
-    // }
-
-
-    // const todayComplete = todayTodo === true && todos[0].status === true;
-
-
-
     return (
       <div className="App">
         <Main
@@ -102,6 +76,7 @@ class App extends Component {
         <History
           data={todos}
           currentUnix={currentUnix}
+          todayTodo={todayTodo}
           onComplete={this.handleComplete}
           onDelete={this.handleDelete} />
       </div>

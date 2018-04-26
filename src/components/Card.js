@@ -23,10 +23,9 @@ class CardHover extends React.Component {
     this.state = {
       isHovered: false
     }
-    this.handleHover = this.handleHover.bind(this);
   }
 
-  handleHover () {
+  handleHover = () => {
     this.setState(() => ({
       isHovered: !this.state.isHovered
     }))
@@ -98,16 +97,16 @@ class Card extends React.Component {
     }
   }
 
-
   render () {
-    const { index, currentUnix, unix, text, status, onComplete, onDelete } = this.props;
+    const { index, currentUnix, todayTodo, unix, text, status, onComplete, onDelete } = this.props;
 
     return (
       <div
         className='Card'
         style={{
           borderColor: status ? 'green' : 'red',
-          display: sameDateCheck(currentUnix, unix) && status === false ? 'none' : ''}}>
+          display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''}}>
+          {/* display: sameDateCheck(currentUnix, unix) && status === false ? 'none' : ''}}> */}
         <CardMain unix={unix} text={text} />
         <CardHover index={index} status={status} onComplete={onComplete} onDelete={onDelete} />
       </div>

@@ -95,25 +95,24 @@ class Form extends React.Component {
   }
 }
 
-class Main extends React.Component {
-  render () {
-    const { currentUnix, todayTodo, onSubmit, onDelete, onComplete } = this.props;
+function Main (props) {
 
-    return (
-      <div className="Main column">
-        <Date currentUnix={currentUnix} />
-        {todayTodo !== 'complete' &&
-          <Form
-          currentUnix={currentUnix}
-          todayTodo={todayTodo}
-          onSubmit={onSubmit}
-          onDelete={onDelete}
-          onComplete={onComplete} />}
-        {todayTodo === 'complete' &&
-          <div>Great job! See you tomorrow.</div>}
-      </div>
-    )
-  }
+  const { currentUnix, todayTodo, onSubmit, onDelete, onComplete } = props;
+
+  return (
+    <div className="Main column">
+      <Date currentUnix={currentUnix} />
+      {todayTodo !== 'complete' &&
+        <Form
+        currentUnix={currentUnix}
+        todayTodo={todayTodo}
+        onSubmit={onSubmit}
+        onDelete={onDelete}
+        onComplete={onComplete} />}
+      {todayTodo === 'complete' &&
+        <div>Great job! See you tomorrow.</div>}
+    </div>
+  )
 }
 
 export default Main;
