@@ -1,11 +1,10 @@
 import React from 'react';
 import Card from './Card';
-import { sameDateCheck } from '../helpers/helpers';
 
 class History extends React.Component {
 
   render () {
-    const { data, currentUnix } = this.props;
+    const { data, currentUnix, onComplete, onDelete } = this.props;
 
     return (
       <div className="History column">
@@ -14,11 +13,13 @@ class History extends React.Component {
           return (
             <Card
               key={index}
+              index={index}
               currentUnix={currentUnix}
               unix={todo.unix}
               text={todo.text}
               status={todo.status}
-
+              onComplete={onComplete}
+              onDelete={onDelete}
             />
           )
         })}

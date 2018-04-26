@@ -1,9 +1,9 @@
 import React from 'react';
-import { formatMain } from '../helpers/helpers';
+import { formatMain, sameDateCheck } from '../helpers/helpers';
 
 function Date (props) {
-  const { unix } = props;
-  const date = formatMain(unix);
+  const { currentUnix } = props;
+  const date = formatMain(currentUnix);
 
   return (
     <h1 className='date'>{date}</h1>
@@ -28,33 +28,37 @@ class Form extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    const { unix, onSubmit } = this.props;
+    const { currentUnix, onSubmit } = this.props;
     const { todo } = this.state;
 
-    onSubmit(unix, todo, false);
+    onSubmit(currentUnix, todo, false);
   }
 
   handleReset = (event) => {
     event.preventDefault();
-    const { onReset } = this.props;
+    const { onDelete } = this.props;
 
     this.setState(() => ({
       todo: ''
     }));
-    onReset();
+
+    onDelete(0);
   }
 
   handleComplete = (event) => {
     event.preventDefault();
     const { onComplete } = this.props;
 
+    this.setState(() => ({
+      todo: ''
+    }));
+
     onComplete(0);
   }
 
   render () {
-    const { todayTodo } = this.props;
     const { todo } = this.state;
+    const { todayTodo } = this.props;
 
     return (
       <form className='column' onSubmit={this.handleSubmit} >
@@ -62,45 +66,51 @@ class Form extends React.Component {
           type='text'
           id='todo'
           placeholder='What will you to do today?'
-          value={this.state.todo}
+          value={todo}
           onChange={this.handleChange}
-          disabled={todayTodo}
+          disabled={todayTodo !== false}
         />
-        {todayTodo
-          ? <div>
-              <button
-                className='button'
-                onClick={this.handleReset}>
-                Reset
-              </button>
-              <button
-                className='button green'
-                onClick={this.handleComplete}>
-                Complete
-              </button>
-            </div>
-          : <div>
-              <button
-                className='button'
-                type='submit'
-                disabled={!todo}>
-                Set
-              </button>
-            </div>}
+        {todayTodo === false &&
+          <button
+            className='button'
+            type='submit'
+            disabled={!todo}>
+            Set
+          </button>}
+        {todayTodo === 'incomplete' &&
+          <div>
+            <button
+              className='button'
+              onClick={this.handleReset}>
+              Reset
+            </button>
+            <button
+              className='button green'
+              onClick={this.handleComplete}>
+              Complete
+            </button>
+          </div>}
       </form>
     )
   }
 }
 
-
 class Main extends React.Component {
   render () {
-    const { unix, todayTodo, onSubmit, onReset, onComplete } = this.props;
+    const { currentUnix, todayTodo, onSubmit, onDelete, onComplete } = this.props;
 
     return (
       <div className="Main column">
-        <Date unix={unix} />
-        <Form unix={unix} todayTodo={todayTodo} onSubmit={onSubmit} onReset={onReset} onComplete={onComplete} />
+        <Date currentUnix={currentUnix} />
+        {todayTodo !== 'complete' &&
+          <Form
+          currentUnix={currentUnix}
+          todayTodo={todayTodo}
+          onSubmit={onSubmit}
+          onDelete={onDelete}
+          onComplete={onComplete} />}
+        {todayTodo === 'complete' &&
+          <div>Great job! See you tomorrow.</div>}
       </div>
     )
   }

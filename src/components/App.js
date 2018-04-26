@@ -32,8 +32,9 @@ class App extends Component {
     }))
   }
 
-  handleReset = () => {
-    const newState = this.state.todos.slice(1);
+  handleDelete = (index) => {
+    const newState = this.state.todos;
+    newState.splice(index, 1);
 
     this.setState(() => ({
       todos: newState
@@ -53,15 +54,56 @@ class App extends Component {
   render() {
     const { todos } = this.state;
     const currentUnix = getCurrentUnix();
-    const todayTodo = sameDateCheck(currentUnix, todos[0].unix);
+    // const todayTodo = typeof todos[0] === 'undefined'
+    //   ? false
+    //   : sameDateCheck(currentUnix, todos[0].unix);
 
+    let todayTodo = false;
+
+    if (typeof todos[0] !== 'undefined') {
+      todayTodo = sameDateCheck(currentUnix, todos[0].unix);
+    }
+    if (todayTodo && todos[0].status === false) {
+      todayTodo = 'incomplete';
+    }
+    if (todayTodo && todos[0].status === true) {
+      todayTodo = 'complete';
+    }
+
+    // console.log(sameDateCheck(currentUnix, todos[0].unix));
+    // console.log(todos[0]);
+
+    // if (typeof todos[0] === 'undefined') {
+    //   todayTodo = null;
+    // }
+    // else if (sameDateCheck(currentUnix, todos[0].unix) && todos[0].status === false) {
+    //   todayTodo = 'incomplete';
+    // }
+    // else if (sameDateCheck(currentUnix, todos[0].unix && todos[0].status === true)) {
+    //   todayTodo = 'complete';
+    // }
+    // else {
+    //   todayTodo = null;
+    // }
+
+
+    // const todayComplete = todayTodo === true && todos[0].status === true;
 
 
 
     return (
       <div className="App">
-        <Main unix={currentUnix} todayTodo={todayTodo} onSubmit={this.handleSubmit} onReset={this.handleReset} onComplete={this.handleComplete} />
-        <History data={todos} currentUnix={currentUnix} />
+        <Main
+          currentUnix={currentUnix}
+          todayTodo={todayTodo}
+          onSubmit={this.handleSubmit}
+          onComplete={this.handleComplete}
+          onDelete={this.handleDelete} />
+        <History
+          data={todos}
+          currentUnix={currentUnix}
+          onComplete={this.handleComplete}
+          onDelete={this.handleDelete} />
       </div>
     );
   }

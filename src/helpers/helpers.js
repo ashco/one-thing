@@ -13,8 +13,11 @@ export function formatCard (unix) {
 }
 
 export function sameDateCheck (current, todo) {
+  if (typeof todo === undefined) {
+    return false
+  }
   const currentDate = formatCard(current);
   const todoDate = formatCard(todo);
 
-  return currentDate !== todoDate ? false : true;
+  return currentDate === todoDate ? true : false;
 }

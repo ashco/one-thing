@@ -32,6 +32,19 @@ class CardHover extends React.Component {
     }))
   }
 
+  handleComplete = (event) => {
+    event.preventDefault();
+
+
+  }
+
+  handleDelete = (event) => {
+    event.preventDefault();
+    const { index, onDelete } = this.props;
+
+    onDelete(index);
+  }
+
   render () {
     const { isHovered } = this.state;
     const { status } = this.props;
@@ -40,6 +53,7 @@ class CardHover extends React.Component {
 
     if (isHovered) {
       btnFormat = {
+        func: this.handleDelete,
         style: 'var(--black-color)',
         text: 'Delete?',
         button: 'X'
@@ -47,6 +61,7 @@ class CardHover extends React.Component {
     }
     else if (status) {
       btnFormat = {
+        func: this.handleComplete,
         style: 'var(--green-color)',
         text: 'Complete!',
         button: '☑︎'
@@ -54,6 +69,7 @@ class CardHover extends React.Component {
     }
     else {
       btnFormat = {
+        func: this.handleDelete,
         style: 'var(--red-color)',
         text: 'Failure!',
         button: '✖︎'
@@ -65,7 +81,8 @@ class CardHover extends React.Component {
         <h2>{btnFormat.text}</h2>
         <button
           onMouseEnter={this.handleHover}
-          onMouseLeave={this.handleHover}>
+          onMouseLeave={this.handleHover}
+          onClick={btnFormat.func}>
             {btnFormat.button}
           </button>
       </div>
@@ -83,17 +100,16 @@ class Card extends React.Component {
 
 
   render () {
-    const { unix, currentUnix, text, status } = this.props;
+    const { index, currentUnix, unix, text, status, onComplete, onDelete } = this.props;
 
     return (
       <div
         className='Card'
         style={{
           borderColor: status ? 'green' : 'red',
-          display: sameDateCheck(currentUnix, unix) ? 'none' : ''
-        }}>
+          display: sameDateCheck(currentUnix, unix) && status === false ? 'none' : ''}}>
         <CardMain unix={unix} text={text} />
-        <CardHover status={status} />
+        <CardHover index={index} status={status} onComplete={onComplete} onDelete={onDelete} />
       </div>
     )
   }
