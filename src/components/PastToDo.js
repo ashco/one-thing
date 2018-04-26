@@ -1,41 +1,65 @@
 import React from 'react';
 
-class PastToDo extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      isHovered: false
-    }
-    this.handleHover = this.handleHover.bind(this);
-  }
-
-  handleHover () {
-    this.setState({
-      isHovered: !this.state.isHovered
-    })
-  }
+class CardMain extends React.Component {
 
   render () {
-    const { date, text, status } = this.props;
-    const hoverClass = this.state.isHovered ? 'hovered' : '';
+    const { date, text } = this.props;
 
     return (
-      <div
-        // className='PastToDo'
-        className={`PastToDo ${hoverClass}`}
-        onMouseEnter={this.handleHover}
-        onMouseLeave={this.handleHover}
-        style={{borderColor: status ? 'green' : 'red'}}>
-        <div className="todo-text">
-          {text}
-        </div>
-        <div className="todo-date">
-          {date}
-        </div>
-
+      <div className='CardMain'>
+        <h3>{text}</h3>
+        <p>{date}</p>
       </div>
     )
   }
 }
 
-export default PastToDo;
+
+class CardHover extends React.Component {
+  render () {
+    const { status } = this.props;
+
+    const format = status === true
+      ? {
+        style: 'green',
+        text: 'Complete',
+        button: '✅'
+      } : {
+        style: 'red',
+        text: 'Slacker',
+        button: 'X'
+      }
+
+    return (
+      <div className='CardHover' style={{backgroundColor: `${format.style}`}}>
+        <h2>{format.text}</h2>
+        <button>{format.button}</button>
+      </div>
+    )
+  }
+}
+
+class Card extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+
+    }
+  }
+
+
+  render () {
+    const { date, text, status } = this.props;
+
+    return (
+      <div
+        className='Card'
+        style={{borderColor: status ? 'green' : 'red'}}>
+        <CardMain date={date} text={text} />
+        <CardHover status={status} />
+      </div>
+    )
+  }
+}
+
+export default Card;

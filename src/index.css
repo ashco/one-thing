@@ -58,24 +58,67 @@ body {
 
 }
 
-.PastToDo {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: var(--main-color);
+.Card {
   border: 1px solid var(--black-color);
   width: 80%;
   height: 100px;
   margin: 10px;
+
+  overflow: hidden;
+	position: relative;
 }
 
-.todo-text {
+
+.CardMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--main-color);
+  height: 100%;
+}
+
+
+.CardMain h3 {
   color: var(--gray-color);
   font-size: 1.6rem;
   margin: .5rem;
 }
 
-.todo-date {
+.CardMain p {
   text-align: right;
   margin: .5rem;
+}
+
+.CardHover {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--black-color);
+  color: var(--main-color);
+  position: absolute;
+	height: 100%;
+  bottom: -100%;
+	left: 0;
+	transition: bottom 0.3s ease;
+  width: 100%;
+}
+
+.CardHover > * {
+  margin: 0 1rem;
+}
+
+.CardHover h2 {
+  font-size: 1.6rem;
+}
+
+.CardHover button {
+  background-color: var(--main-color);
+  height: 2.8rem;
+  width: 2.8rem;
+}
+
+
+
+.Card:hover .CardHover {
+  bottom: 0%;
 }
