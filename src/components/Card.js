@@ -13,24 +13,25 @@ function CardMain (props) {
   )
 }
 
-
 class CardHover extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      isHovered: false
+      isBtnHovered: false
     }
   }
 
-  handleHover = () => {
+  handleBtnHover = () => {
     this.setState(() => ({
-      isHovered: !this.state.isHovered
+      isBtnHovered: !this.state.isBtnHovered
     }))
   }
 
   handleComplete = (event) => {
     event.preventDefault();
+    const { index, onComplete } = this.props;
 
+    onComplete(index);
   }
 
   handleDelete = (event) => {
@@ -41,43 +42,44 @@ class CardHover extends React.Component {
   }
 
   render () {
-    const { isHovered } = this.state;
+    const { isBtnHovered } = this.state;
     const { status } = this.props;
-    let btnFormat
+    let format
 
-    if (isHovered) {
-      btnFormat = {
+
+    if (isBtnHovered && status) {
+      format = {
         func: this.handleDelete,
         style: 'var(--black-color)',
         text: 'Delete?',
-        button: 'X'
+        button: '✖︎'
       }
     }
-    else if (status) {
-      btnFormat = {
+    else if (isBtnHovered && !status || status) {
+      format = {
         func: this.handleComplete,
         style: 'var(--green-color)',
         text: 'Complete!',
         button: '☑︎'
       }
     }
-    else {
-      btnFormat = {
+    else if (!status) {
+      format = {
         func: this.handleDelete,
-        style: 'var(--red-color)',
-        text: 'Failure!',
-        button: '✖︎'
+        style: 'var(--black-color)',
+        text: 'Complete',
+        button: '?'
       }
     }
 
     return (
-      <div className='CardHover' style={{backgroundColor: `${btnFormat.style}`}}>
-        <h2>{btnFormat.text}</h2>
+      <div className='CardHover' style={{backgroundColor: `${format.style}`}}>
+        <h2>{format.text}</h2>
         <button
-          onMouseEnter={this.handleHover}
-          onMouseLeave={this.handleHover}
-          onClick={btnFormat.func}>
-            {btnFormat.button}
+          onMouseEnter={this.handleBtnHover}
+          onMouseLeave={this.handleBtnHover}
+          onClick={format.func}>
+            {format.button}
         </button>
       </div>
     )
@@ -93,8 +95,14 @@ function Card (props) {
       style={{
         borderColor: status ? 'green' : 'red',
         display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''}}>
-      <CardMain unix={unix} text={text} />
-      <CardHover index={index} status={status} onComplete={onComplete} onDelete={onDelete} />
+      <CardMain
+        unix={unix}
+        text={text} />
+      <CardHover
+        index={index}
+        status={status}
+        onComplete={onComplete}
+        onDelete={onDelete} />
     </div>
   )
 }

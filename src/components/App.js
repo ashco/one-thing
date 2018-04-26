@@ -9,13 +9,13 @@ class App extends Component {
     this.state = {
       todos: [
         {
-          unix: 1044711086746,
-          text: 'Get a job',
-          status: false
-        },{
           unix: 1424711086746,
           text: 'Eat a pizza',
           status: true
+        },{
+          unix: 1044711086746,
+          text: 'Get a job',
+          status: false
         }
       ]
     }
