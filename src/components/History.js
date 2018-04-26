@@ -1,11 +1,11 @@
 import React from 'react';
-import Card from './PastToDo';
+import Card from './Card';
+import { sameDateCheck } from '../helpers/helpers';
 
 class History extends React.Component {
 
-
   render () {
-    const { data } = this.props;
+    const { data, currentUnix } = this.props;
 
     return (
       <div className="History column">
@@ -14,9 +14,11 @@ class History extends React.Component {
           return (
             <Card
               key={index}
-              date={todo.date}
+              currentUnix={currentUnix}
+              unix={todo.unix}
               text={todo.text}
               status={todo.status}
+
             />
           )
         })}

@@ -3,6 +3,8 @@
   --secondary-color: #f0f0f0;
   --black-color: #333333;
   --gray-color: #888888;
+  --green-color: #6cb84e;
+  --red-color: #f75954;
 }
 
 body {
@@ -27,7 +29,12 @@ body {
 
 .Main {
   width: 70vw;
+  justify-content: center;
   background-color: var(--main-color);
+}
+
+.Main .date {
+  font-weight: 300;
 }
 
 .Main input {
@@ -36,7 +43,6 @@ body {
   height: 10rem;
   border: none;
   border-bottom: 2px solid var(--black-color);
-  /* border-radius: 4px; */
   resize: none;
   background-color: var(--main-color);
 }
@@ -63,7 +69,6 @@ body {
   width: 80%;
   height: 100px;
   margin: 10px;
-
   overflow: hidden;
 	position: relative;
 }
@@ -81,6 +86,7 @@ body {
 .CardMain h3 {
   color: var(--gray-color);
   font-size: 1.6rem;
+  font-weight: 400;
   margin: .5rem;
 }
 
@@ -97,10 +103,10 @@ body {
   color: var(--main-color);
   position: absolute;
 	height: 100%;
-  bottom: -100%;
-	left: 0;
-	transition: bottom 0.3s ease;
   width: 100%;
+  bottom: -100%;
+  left: 0;
+	transition: bottom 0.3s ease;
 }
 
 .CardHover > * {
@@ -108,17 +114,21 @@ body {
 }
 
 .CardHover h2 {
+  color: var(--main-color);
   font-size: 1.6rem;
 }
 
 .CardHover button {
-  background-color: var(--main-color);
+  border: none;
   height: 2.8rem;
   width: 2.8rem;
 }
 
+.CardHover button:hover {
 
+}
 
 .Card:hover .CardHover {
   bottom: 0%;
+  /* left: 0%; */
 }
