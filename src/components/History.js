@@ -12,7 +12,6 @@ function History (props) {
           <Card
             key={index}
             index={index}
-            currentUnix={currentUnix}
             todayTodo={todayTodo}
             unix={todo.unix}
             text={todo.text}

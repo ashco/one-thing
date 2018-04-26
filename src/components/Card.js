@@ -1,19 +1,16 @@
 import React from 'react';
-import { formatCard, sameDateCheck } from '../helpers/helpers';
+import { formatCard } from '../helpers/helpers';
 
-class CardMain extends React.Component {
+function CardMain (props) {
+  const { unix, text } = props;
+  const date = formatCard(unix);
 
-  render () {
-    const { unix, text } = this.props;
-    const date = formatCard(unix);
-
-    return (
-      <div className='CardMain'>
-        <h3>{text}</h3>
-        <p>{date}</p>
-      </div>
-    )
-  }
+  return (
+    <div className='CardMain'>
+      <h3>{text}</h3>
+      <p>{date}</p>
+    </div>
+  )
 }
 
 
@@ -34,7 +31,6 @@ class CardHover extends React.Component {
   handleComplete = (event) => {
     event.preventDefault();
 
-
   }
 
   handleDelete = (event) => {
@@ -47,7 +43,6 @@ class CardHover extends React.Component {
   render () {
     const { isHovered } = this.state;
     const { status } = this.props;
-
     let btnFormat
 
     if (isHovered) {
@@ -83,35 +78,25 @@ class CardHover extends React.Component {
           onMouseLeave={this.handleHover}
           onClick={btnFormat.func}>
             {btnFormat.button}
-          </button>
+        </button>
       </div>
     )
   }
 }
 
-class Card extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
+function Card (props) {
+  const { index, todayTodo, unix, text, status, onComplete, onDelete } = props;
 
-    }
-  }
-
-  render () {
-    const { index, currentUnix, todayTodo, unix, text, status, onComplete, onDelete } = this.props;
-
-    return (
-      <div
-        className='Card'
-        style={{
-          borderColor: status ? 'green' : 'red',
-          display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''}}>
-          {/* display: sameDateCheck(currentUnix, unix) && status === false ? 'none' : ''}}> */}
-        <CardMain unix={unix} text={text} />
-        <CardHover index={index} status={status} onComplete={onComplete} onDelete={onDelete} />
-      </div>
-    )
-  }
+  return (
+    <div
+      className='Card'
+      style={{
+        borderColor: status ? 'green' : 'red',
+        display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''}}>
+      <CardMain unix={unix} text={text} />
+      <CardHover index={index} status={status} onComplete={onComplete} onDelete={onDelete} />
+    </div>
+  )
 }
 
 export default Card;
