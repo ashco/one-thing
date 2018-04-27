@@ -6,7 +6,7 @@ function Date (props) {
   const date = formatMain(currentUnix);
 
   return (
-    <h1 className='date'>{date}</h1>
+    <h2>{date}</h2>
   )
 }
 
@@ -65,29 +65,30 @@ class Form extends React.Component {
         <input
           type='text'
           id='todo'
-          placeholder='What will you to do today?'
+          placeholder='What will you to accomplish today?'
           value={todo}
           onChange={this.handleChange}
           disabled={todayTodo !== false}
         />
         {todayTodo === false &&
           <button
-            className='button'
+            className='btn-large btn-set'
             type='submit'
+            style={{backgroundColor: !todo ? 'var(--gray-color)' : ''}}
             disabled={!todo}>
             Set
           </button>}
         {todayTodo === 'incomplete' &&
           <div>
             <button
-              className='button'
+              className='btn-small btn-x'
               onClick={this.handleReset}>
-              Reset
+              ✕
             </button>
             <button
-              className='button green'
+              className='btn-small btn-chk'
               onClick={this.handleComplete}>
-              Complete
+              ✓
             </button>
           </div>}
       </form>
@@ -100,7 +101,7 @@ function Main (props) {
   const { currentUnix, todayTodo, onSubmit, onDelete, onComplete } = props;
 
   return (
-    <div className="Main column">
+    <div className="Main">
       <Date currentUnix={currentUnix} />
       {todayTodo !== 'complete' &&
         <Form
@@ -110,7 +111,7 @@ function Main (props) {
         onDelete={onDelete}
         onComplete={onComplete} />}
       {todayTodo === 'complete' &&
-        <div>Great job! See you tomorrow.</div>}
+        <p className='complete-msg'>Great job! See you tomorrow.</p>}
     </div>
   )
 }

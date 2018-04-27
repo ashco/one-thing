@@ -2,11 +2,12 @@ import React from 'react';
 import Card from './Card';
 
 function History (props) {
-  const { data, currentUnix, todayTodo, onComplete, onDelete } = props;
+  const { data, todayTodo, onComplete, onDelete } = props;
 
   return (
-    <div className="History column">
-      <h1>History</h1>
+    <div className="History">
+      <h2>History</h2>
+      <div>
       {data.map((todo, index) => {
         return (
           <Card
@@ -21,6 +22,7 @@ function History (props) {
           />
         )
       })}
+      </div>
     </div>
   )
 }

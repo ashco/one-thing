@@ -75,7 +75,6 @@ class App extends Component {
           onDelete={this.handleDelete} />
         <History
           data={todos}
-          currentUnix={currentUnix}
           todayTodo={todayTodo}
           onComplete={this.handleComplete}
           onDelete={this.handleDelete} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './Button';
 import { formatCard } from '../helpers/helpers';
 
 function CardMain (props) {
@@ -44,43 +45,60 @@ class CardHover extends React.Component {
   render () {
     const { isBtnHovered } = this.state;
     const { status } = this.props;
-    let format
 
+    let format = {};
 
     if (isBtnHovered && status) {
       format = {
         func: this.handleDelete,
-        style: 'var(--black-color)',
+        style: {
+          backgroundColor: 'var(--black-color)'
+        },
+        btnStyle: {
+          backgroundColor: 'var(--black-alt-color)'
+        },
         text: 'Delete?',
-        button: '✖︎'
+        button: '✕'
       }
     }
-    else if (isBtnHovered && !status || status) {
+    else if (status || isBtnHovered && !status) {
       format = {
         func: this.handleComplete,
-        style: 'var(--green-color)',
+        style: {
+          backgroundColor: 'var(--green-color)'
+        },
+        btnStyle: {
+          backgroundColor: 'var(--green-alt-color)'
+        },
         text: 'Complete!',
-        button: '☑︎'
+        button: '✓'
       }
     }
     else if (!status) {
       format = {
         func: this.handleDelete,
-        style: 'var(--black-color)',
-        text: 'Complete',
-        button: '?'
+        style: {
+          backgroundColor: 'var(--black-color)'
+        },
+        btnStyle: {
+          backgroundColor: 'var(--black-alt-color)'
+        },
+        text: 'Busy, huh...',
+        button: '...'
       }
     }
 
     return (
-      <div className='CardHover' style={{backgroundColor: `${format.style}`}}>
+      <div className='CardHover' style={format.style}>
         <h2>{format.text}</h2>
-        <button
-          onMouseEnter={this.handleBtnHover}
-          onMouseLeave={this.handleBtnHover}
-          onClick={format.func}>
-            {format.button}
-        </button>
+          <button
+            onMouseEnter={this.handleBtnHover}
+            onMouseLeave={this.handleBtnHover}
+            className='btn-small'
+            style={format.btnStyle}
+            onClick={format.func}>
+              {format.button}
+          </button>
       </div>
     )
   }
@@ -93,7 +111,7 @@ function Card (props) {
     <div
       className='Card'
       style={{
-        borderColor: status ? 'green' : 'red',
+        borderColor: status ? 'var(--green-color)' : 'var(--black-color)',
         display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''}}>
       <CardMain
         unix={unix}

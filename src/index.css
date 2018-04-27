@@ -1,10 +1,17 @@
 * {
   --main-color: #f4f4f4;
   --secondary-color: #f0f0f0;
-  --black-color: #333333;
-  --gray-color: #888888;
+  --black-color: #3a3a3a;
+  --black-alt-color: #272727;
+  --gray-color: #7c7c7c;
   --green-color: #6cb84e;
+  --green-alt-color: #5eaa3f;
   --red-color: #f75954;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 1.4rem;
 }
 
 body {
@@ -28,47 +35,86 @@ body {
 }
 
 .Main {
+  display: grid;
+  grid-template-rows: 10% 1fr 10%;
+  justify-items: center;
+  align-items: center;
   width: 70vw;
-  justify-content: center;
   background-color: var(--main-color);
 }
 
-.Main .date {
-  font-weight: 300;
+.Main h2 {
+
 }
 
-.Main input {
+
+
+.Main input, .complete-msg {
   font-size: 2rem;
   width: 40rem;
-  height: 10rem;
+  height: 4rem;
   border: none;
   border-bottom: 2px solid var(--black-color);
   resize: none;
+  text-align: center;
+  color: var(--black-color);
   background-color: var(--main-color);
 }
 
-.Main button {
+button {
   background-color: var(--black-color);
   border: none;
   color: white;
-  padding: 16px 32px;
   text-decoration: none;
   margin: 4px 2px;
+  height: 45px;
   cursor: pointer;
+}
+
+.Main .btn-large {
+  width: 98px;
+}
+
+.Main .btn-small {
+  width: 45px;
+  font-size: 1.4rem;
+}
+
+.btn-set:hover {
+  background-color: var(--black-alt-color);
+}
+
+.btn-x:hover {
+  background-color: var(--red-color);
+}
+
+.btn-chk {
+  background-color: var(--green-color);
+}
+
+.btn-chk:hover {
+  background-color: var(--green-alt-color);
 }
 
 /* HISTORY */
 .History {
+  display: grid;
+  /* justify-items: center; */
   width: 30vw;
+  grid-template-rows: 10% 1fr;
   background-color: var(--secondary-color);
+}
 
+.History h2 {
+  text-align: center;
+  align-self: center;
 }
 
 .Card {
   border: 1px solid var(--black-color);
-  width: 80%;
+  width: 85%;
   height: 100px;
-  margin: 10px;
+  margin: 0 auto 15px auto;
   overflow: hidden;
 	position: relative;
 }
@@ -87,7 +133,7 @@ body {
   color: var(--gray-color);
   font-size: 1.6rem;
   font-weight: 400;
-  margin: .5rem;
+  margin: 0.8rem;
 }
 
 .CardMain p {
