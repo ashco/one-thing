@@ -50,7 +50,7 @@ class Form extends React.Component {
     const { onComplete } = this.props;
 
     this.setState(() => ({
-      todo: ''
+      todo: 'Great job! See you tomorrow.'
     }));
 
     onComplete(0);
@@ -70,14 +70,15 @@ class Form extends React.Component {
           onChange={this.handleChange}
           disabled={todayTodo !== false}
         />
+        <div className='btn-container'>
         {todayTodo === false &&
-          <button
-            className='btn-large btn-set'
-            type='submit'
-            style={{backgroundColor: !todo ? 'var(--gray-color)' : ''}}
-            disabled={!todo}>
-            Set
-          </button>}
+            <button
+              className='btn-large btn-set'
+              type='submit'
+              style={{backgroundColor: !todo ? 'var(--gray-color)' : ''}}
+              disabled={!todo}>
+              Set
+            </button>}
         {todayTodo === 'incomplete' &&
           <div>
             <button
@@ -91,6 +92,13 @@ class Form extends React.Component {
               ✓
             </button>
           </div>}
+        {/* {todayTodo === 'complete' &&
+            <button
+              className='btn-small btn-chk'
+              onClick={this.handleReset}>
+              ✕
+            </button>} */}
+          </div>
       </form>
     )
   }
@@ -103,15 +111,18 @@ function Main (props) {
   return (
     <div className="Main">
       <Date currentUnix={currentUnix} />
-      {todayTodo !== 'complete' &&
-        <Form
+      {/* {todayTodo !== 'complete' && */}
+      <Form
         currentUnix={currentUnix}
         todayTodo={todayTodo}
         onSubmit={onSubmit}
         onDelete={onDelete}
-        onComplete={onComplete} />}
-      {todayTodo === 'complete' &&
-        <p className='complete-msg'>Great job! See you tomorrow.</p>}
+        onComplete={onComplete} />
+      {/* {todayTodo === 'complete' &&
+        <p className='complete-msg'>Great job! See you tomorrow.</p>} */}
+      <div>
+        <h2 className='quote'>Motivational quote goes here...</h2>
+      </div>
     </div>
   )
 }

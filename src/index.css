@@ -1,6 +1,6 @@
 * {
-  --main-color: #f4f4f4;
-  --secondary-color: #f0f0f0;
+  --main-color: #f1f1f1;
+  --secondary-color: #ebebeb;
   --black-color: #3a3a3a;
   --black-alt-color: #272727;
   --gray-color: #7c7c7c;
@@ -47,12 +47,18 @@ body {
 
 }
 
+.Main form {
+  display: grid;
+  grid-template-rows: 70% 30%;
+  width: 80%;
+  height: 140px;
+
+}
 
 
 .Main input, .complete-msg {
   font-size: 2rem;
-  width: 40rem;
-  height: 4rem;
+  height: 70px;
   border: none;
   border-bottom: 2px solid var(--black-color);
   resize: none;
@@ -69,6 +75,11 @@ button {
   margin: 4px 2px;
   height: 45px;
   cursor: pointer;
+}
+
+form .btn-container {
+  display: flex;
+  justify-content: center;
 }
 
 .Main .btn-large {
@@ -94,6 +105,11 @@ button {
 
 .btn-chk:hover {
   background-color: var(--green-alt-color);
+}
+
+.quote {
+  font-style: italic;
+  font-weight: 200;
 }
 
 /* HISTORY */
