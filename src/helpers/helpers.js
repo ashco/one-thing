@@ -1,5 +1,9 @@
 import moment from 'moment';
+import axios from 'axios';
 
+const quoteUrl = 'https://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en';
+
+// TIME
 export function getCurrentUnix () {
   return Date.now();
 }
@@ -20,4 +24,15 @@ export function sameDateCheck (current, todo) {
   const todoDate = formatCard(todo);
 
   return currentDate === todoDate ? true : false;
+}
+
+// API
+export function getQuote () {
+  axios.get(quoteUrl)
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.warn(error);
+    })
 }

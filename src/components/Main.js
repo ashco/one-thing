@@ -1,5 +1,7 @@
 import React from 'react';
-import { formatMain, sameDateCheck } from '../helpers/helpers';
+import { formatMain, sameDateCheck, getQuote } from '../helpers/helpers';
+
+getQuote();
 
 function Date (props) {
   const { currentUnix } = props;
@@ -67,6 +69,10 @@ class Form extends React.Component {
           id='todo'
           placeholder='What will you to accomplish today?'
           value={todo}
+          style={{
+            color: todo ? 'var(--black-color)' : 'var(--gray-color)',
+            borderColor: todo ? 'var(--black-color)' : 'var(--gray-color)'
+          }}
           onChange={this.handleChange}
           disabled={todayTodo !== false}
         />

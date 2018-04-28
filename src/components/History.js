@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 
 function History (props) {
-  const { data, todayTodo, onComplete, onDelete } = props;
+  const { data, todayTodo, onComplete, onDelete, resetInput } = props;
 
   return (
     <div className="History">
@@ -19,6 +19,7 @@ function History (props) {
             status={todo.status}
             onComplete={onComplete}
             onDelete={onDelete}
+            resetInput={resetInput}
           />
         )
       })}

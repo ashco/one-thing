@@ -37,7 +37,9 @@ class CardHover extends React.Component {
 
   handleDelete = (event) => {
     event.preventDefault();
-    const { index, onDelete } = this.props;
+    const { index, onDelete, resetInput } = this.props;
+
+    // resetInput();
 
     onDelete(index);
   }
@@ -105,7 +107,7 @@ class CardHover extends React.Component {
 }
 
 function Card (props) {
-  const { index, todayTodo, unix, text, status, onComplete, onDelete } = props;
+  const { index, todayTodo, unix, text, status, onComplete, onDelete, resetInput } = props;
 
   return (
     <div
@@ -120,7 +122,8 @@ function Card (props) {
         index={index}
         status={status}
         onComplete={onComplete}
-        onDelete={onDelete} />
+        onDelete={onDelete}
+        resetInput={resetInput} />
     </div>
   )
 }

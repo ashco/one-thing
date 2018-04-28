@@ -3,7 +3,7 @@
   --secondary-color: #ebebeb;
   --black-color: #3a3a3a;
   --black-alt-color: #272727;
-  --gray-color: #7c7c7c;
+  --gray-color: #757575;
   --green-color: #6cb84e;
   --green-alt-color: #5eaa3f;
   --red-color: #f75954;
@@ -54,17 +54,37 @@ body {
   height: 140px;
 
 }
-
+/*
 
 .Main input, .complete-msg {
   font-size: 2rem;
   height: 70px;
   border: none;
-  border-bottom: 2px solid var(--black-color);
   resize: none;
   text-align: center;
-  color: var(--black-color);
+  color: var(--gray-color);
+  border-bottom: 2px solid var(--gray-color);
+  border-color: var(--gray-color);
   background-color: var(--main-color);
+} */
+
+.Main input, .complete-msg {
+  font-size: 2rem;
+  height: 70px;
+  border: none;
+  resize: none;
+  text-align: center;
+  color: var(--gray-color);
+  background-color: var(--main-color);
+  border-bottom: 2px solid var(--gray-color);
+}
+
+.Main input {
+  outline: none;
+}
+
+.Main input:focus {
+  border-bottom-color: var(--black-color);
 }
 
 button {
