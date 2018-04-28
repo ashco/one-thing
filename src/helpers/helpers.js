@@ -13,7 +13,7 @@ export function formatMain (unix) {
 }
 
 export function formatCard (unix) {
-  return moment(unix).format("MMMM Do YYYY");
+  return moment(unix).format("l");
 }
 
 export function sameDateCheck (current, todo) {
@@ -35,4 +35,45 @@ export function getQuote () {
     .catch(error => {
       console.warn(error);
     })
+}
+
+// Font Size
+
+export function autoFontSize () {
+  const cards = Array.from(document.querySelectorAll('.CardMain'));
+
+  if (cards < 0) {
+    console.log('NO CARDS');
+    return;
+  }
+
+  cards.forEach(card => {
+    const cardHeight = card.offsetHeight;
+    const textContent = card.querySelector('.CardMain--textbox');
+    const textMargin = parseInt(window.getComputedStyle(textContent).marginTop) + parseInt(window.getComputedStyle(textContent).marginBottom);
+    let textHeight = textContent.offsetHeight;
+    let fontSize = 1.5;
+
+    if (cardHeight > 0) {
+      while ((textHeight + textMargin) < cardHeight) {
+        if (fontSize > 1.5) {
+          return;
+        }
+        fontSize = fontSize + 0.05;
+        textContent.style.fontSize = `${fontSize}rem`;
+        textHeight = textContent.offsetHeight;
+      }
+
+      while ((textHeight + textMargin) > cardHeight) {
+        if (fontSize < 0.9) {
+          return;
+        }
+        fontSize = fontSize - 0.05;
+        textContent.style.fontSize = `${fontSize}rem`;
+        textHeight = textContent.offsetHeight;
+      }
+
+
+    }
+  })
 }

@@ -2,16 +2,25 @@ import React from 'react';
 import Button from './Button';
 import { formatCard } from '../helpers/helpers';
 
-function CardMain (props) {
-  const { unix, text } = props;
-  const date = formatCard(unix);
+class CardMain extends React.Component {
 
-  return (
-    <div className='CardMain'>
-      <h3>{text}</h3>
-      <p>{date}</p>
-    </div>
-  )
+  // componentDidMount () {
+  //   autoFontSize(index);
+  // }
+
+  render () {
+    const { unix, text } = this.props;
+    const date = formatCard(unix);
+
+    return (
+      <div className='CardMain'>
+        {/* <div className='CardMain--textbox'> */}
+          <h3 className='CardMain--textbox'>{text}</h3>
+        {/* </div> */}
+        <p className='CardMain--date'>-{date}</p>
+      </div>
+    )
+  }
 }
 
 class CardHover extends React.Component {
@@ -37,9 +46,7 @@ class CardHover extends React.Component {
 
   handleDelete = (event) => {
     event.preventDefault();
-    const { index, onDelete, resetInput } = this.props;
-
-    // resetInput();
+    const { index, onDelete } = this.props;
 
     onDelete(index);
   }
@@ -54,10 +61,10 @@ class CardHover extends React.Component {
       format = {
         func: this.handleDelete,
         style: {
-          backgroundColor: 'var(--black-color)'
+          backgroundColor: 'var(--red-color)'
         },
         btnStyle: {
-          backgroundColor: 'var(--black-alt-color)'
+          backgroundColor: 'var(--red-alt-color)'
         },
         text: 'Delete?',
         button: '✕'
@@ -107,23 +114,24 @@ class CardHover extends React.Component {
 }
 
 function Card (props) {
-  const { index, todayTodo, unix, text, status, onComplete, onDelete, resetInput } = props;
+  const { index, todayTodo, unix, text, status, onComplete, onDelete } = props;
 
   return (
     <div
       className='Card'
       style={{
         borderColor: status ? 'var(--green-color)' : 'var(--black-color)',
-        display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''}}>
+        // display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''
+        }}>
       <CardMain
+        index={index}
         unix={unix}
         text={text} />
       <CardHover
         index={index}
         status={status}
         onComplete={onComplete}
-        onDelete={onDelete}
-        resetInput={resetInput} />
+        onDelete={onDelete} />
     </div>
   )
 }

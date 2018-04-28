@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatMain, sameDateCheck, getQuote } from '../helpers/helpers';
 
-getQuote();
+// getQuote();
 
 function Date (props) {
   const { currentUnix } = props;
@@ -98,12 +98,6 @@ class Form extends React.Component {
               ✓
             </button>
           </div>}
-        {/* {todayTodo === 'complete' &&
-            <button
-              className='btn-small btn-chk'
-              onClick={this.handleReset}>
-              ✕
-            </button>} */}
           </div>
       </form>
     )
@@ -117,15 +111,17 @@ function Main (props) {
   return (
     <div className="Main">
       <Date currentUnix={currentUnix} />
-      {/* {todayTodo !== 'complete' && */}
+      {todayTodo !== 'complete' &&
       <Form
         currentUnix={currentUnix}
         todayTodo={todayTodo}
         onSubmit={onSubmit}
         onDelete={onDelete}
-        onComplete={onComplete} />
-      {/* {todayTodo === 'complete' &&
-        <p className='complete-msg'>Great job! See you tomorrow.</p>} */}
+        onComplete={onComplete} />}
+      {todayTodo === 'complete' &&
+      <div className='complete-msg'>
+        <p>Great job! See you tomorrow.</p>
+      </div>}
       <div>
         <h2 className='quote'>Motivational quote goes here...</h2>
       </div>
