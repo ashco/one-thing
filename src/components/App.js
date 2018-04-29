@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import Main from './Main';
 import History from './History';
-import { getCurrentUnix, sameDateCheck } from '../helpers/helpers';
+import { getCurrentUnix, sameDateCheck, setLocalStorage, updateLocalStorage } from '../helpers/helpers';
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todos: [
-        {
-          unix: 1424711086746,
-          text: 'Eat double chicken wings',
-          status: true
-        },{
-          unix: 1044711086746,
-          text: 'Get a job',
-          status: false
-        },{
-          unix: 1324711086746,
-          text: 'Build a house',
-          status: true
-        },{
-          unix: 1454711086746,
-          text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
-          status: false
-        }
+      data: [
+        // {
+        //   unix: 1424711086746,
+        //   text: 'Eat double chicken wings',
+        //   status: true
+        // },{
+        //   unix: 1044711086746,
+        //   text: 'Get a job',
+        //   status: false
+        // },{
+        //   unix: 1324711086746,
+        //   text: 'Build a house',
+        //   status: true
+        // },{
+        //   unix: 1454711086746,
+        //   text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
+        //   status: false
+        // }
       ],
       lastDelete: {
 
@@ -58,30 +58,39 @@ class App extends Component {
 
   handleSubmit = (unix, value, status) => {
     this.setState(() => ({
-      todos: [{
+      data: [{
         unix,
         text: value,
         status
-      }, ...this.state.todos]
+      }, ...this.state.data]
     }))
+
+    updateLocalStorage(this.state.data);
   }
 
   handleDelete = (index) => {
-    const newState = this.state.todos;
+    const newState = this.state.data;
     newState.splice(index, 1);
 
-    this.setState(() => ({ todos: newState }));
+    this.setState(() => ({ data: newState }));
+
+    updateLocalStorage(this.state.data);
   }
 
   handleComplete = (index) => {
-    console.log('trigger');
-    const newState = this.state.todos;
+    const newState = this.state.data;
     newState[index].status = true;
 
-    this.setState(() => ({ todos: newState }))
+    this.setState(() => ({ data: newState }))
+
+    updateLocalStorage(this.state.data);
   }
 
   componentDidMount () {
+    let data = setLocalStorage();
+    console.log(data);
+    this.setState({ data: data })
+
     this.windowActivator();
     window.addEventListener('resize', this.windowActivator);
   }
@@ -89,17 +98,17 @@ class App extends Component {
   componentWillUnmount = () => window.removeEventListener('resize', this.windowActivator);
 
   render() {
-    const { todos, activeMain, activeHistory } = this.state;
+    const { data, activeMain, activeHistory } = this.state;
     const currentUnix = getCurrentUnix();
     let todayTodo = false;
 
-    if (typeof todos[0] !== 'undefined') {
-      todayTodo = sameDateCheck(currentUnix, todos[0].unix);
+    if (typeof data[0] !== 'undefined') {
+      todayTodo = sameDateCheck(currentUnix, data[0].unix);
     }
-    if (todayTodo && todos[0].status === false) {
+    if (todayTodo && data[0].status === false) {
       todayTodo = 'incomplete';
     }
-    if (todayTodo && todos[0].status === true) {
+    if (todayTodo && data[0].status === true) {
       todayTodo = 'complete';
     }
 
@@ -113,7 +122,7 @@ class App extends Component {
             onComplete={this.handleComplete}
             onDelete={this.handleDelete} />}
           <History
-            data={todos}
+            data={data}
             todayTodo={todayTodo}
             activeMain={activeMain}
             activeHistory={activeHistory}

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMain, getQuote } from '../helpers/helpers';
-
-let apiData = getQuote();
-console.log(apiData);
+import { formatMain } from '../helpers/helpers';
 
 
 export function Date (props) {
@@ -21,7 +18,7 @@ class Form extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      todo: '',
+      input: '',
       maxLimit: true
    }
   }
@@ -40,22 +37,22 @@ class Form extends React.Component {
       return;
     }
 
-    this.setState(() => ({ todo: value }));
+    this.setState(() => ({ input: value }));
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { currentUnix, onSubmit } = this.props;
-    const { todo } = this.state;
+    const { input } = this.state;
 
-    onSubmit(currentUnix, todo, false);
+    onSubmit(currentUnix, input, false);
   }
 
   handleReset = (event) => {
     event.preventDefault();
     const { onDelete } = this.props;
 
-    this.setState(() => ({ todo: '' }));
+    this.setState(() => ({ input: '' }));
 
     onDelete(0);
   }
@@ -64,25 +61,25 @@ class Form extends React.Component {
     event.preventDefault();
     const { onComplete } = this.props;
 
-    this.setState(() => ({ todo: 'Great job! See you tomorrow.' }));
+    this.setState(() => ({ input: 'Great job! See you tomorrow.' }));
 
     onComplete(0);
   }
 
   render () {
-    const { todo, maxLimit } = this.state;
+    const { input, maxLimit } = this.state;
     const { todayTodo } = this.props;
 
     return (
       <form className='column' onSubmit={this.handleSubmit}>
         <input
           type='text'
-          id='todo'
+          id='input'
           placeholder='What will you to accomplish today?'
-          value={todo}
+          value={input}
           style={{
-            color: todo ? 'var(--black-color)' : 'var(--gray-color)',
-            borderColor: todo ? 'var(--black-color)' : 'var(--gray-color)'
+            color: input ? 'var(--black-color)' : 'var(--gray-color)',
+            borderColor: input ? 'var(--black-color)' : 'var(--gray-color)'
           }}
           onChange={this.handleChange}
           disabled={todayTodo !== false}
@@ -92,8 +89,8 @@ class Form extends React.Component {
               <button
               className='btn-large btn-set'
               type='submit'
-              style={{backgroundColor: !todo ? 'var(--gray-color)' : ''}}
-              disabled={!todo}>
+              style={{backgroundColor: !input ? 'var(--gray-color)' : ''}}
+              disabled={!input}>
               Set
             </button>}
         {todayTodo === 'incomplete' &&

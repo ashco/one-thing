@@ -1,18 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Date } from './Main';
 import Card from './Card';
 import menu from '../menu_icon.svg';
 import { autoFontSize } from '../helpers/helpers';
 
 class History extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-
-    }
-  }
-
   componentDidMount () {
     autoFontSize();
     window.addEventListener('resize', autoFontSize);

@@ -91,9 +91,6 @@ function CardHoverIncomplete (props) {
 
 class CardHover extends React.Component {
 
-
-
-
   handleComplete = (event) => {
     event.preventDefault();
     const { index, onComplete } = this.props;

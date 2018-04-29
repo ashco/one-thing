@@ -1,12 +1,6 @@
 import moment from 'moment';
 import axios from 'axios';
-require('dotenv').config();
 
-const quoteUrl = 'https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en';
-
-const imgUrl = 'https://api.unsplash.com/collections/featured?client_id=';
-
-const query = imgUrl + process.env.REACT_APP_UNSPLASH_CLIENT_ID;
 
 // TIME
 export function getCurrentUnix () {
@@ -31,15 +25,14 @@ export function sameDateCheck (current, todo) {
   return currentDate === todoDate ? true : false;
 }
 
-// API
-export function getQuote () {
-  axios.get(query)
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      console.warn(error);
-    })
+// Local Storage
+export function setLocalStorage () {
+  const data = JSON.parse(localStorage.getItem('data')) || [];
+  return data;
+}
+
+export function updateLocalStorage (data) {
+  localStorage.setItem('data', JSON.stringify(data));
 }
 
 // Font Size
