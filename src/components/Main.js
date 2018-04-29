@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMain, sameDateCheck, getQuote } from '../helpers/helpers';
+import { formatMain, getQuote } from '../helpers/helpers';
+
+let apiData = getQuote();
+console.log(apiData);
 
 
-function Date (props) {
+export function Date (props) {
   const { currentUnix } = props;
   const date = formatMain(currentUnix);
 
@@ -26,6 +29,8 @@ class Form extends React.Component {
   btnWarning () {
 
   }
+
+
 
   handleChange = (event) => {
     const value = event.target.value;

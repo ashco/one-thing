@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from './Button';
 import { formatCard } from '../helpers/helpers';
+require('dotenv').config();
 
 class CardMain extends React.Component {
-
   render () {
     const { unix, text } = this.props;
     const date = formatCard(unix);

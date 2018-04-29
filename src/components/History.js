@@ -1,57 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Date } from './Main';
 import Card from './Card';
-import menu from '../menu_icon_2.svg';
+import menu from '../menu_icon.svg';
 import { autoFontSize } from '../helpers/helpers';
 
 class History extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      active: true
+
     }
   }
 
   componentDidMount () {
     autoFontSize();
-    this.windowActivator();
     window.addEventListener('resize', autoFontSize);
-    window.addEventListener('resize', this.windowActivator);
   }
 
   componentWillUnmount = () => window.removeEventListener('resize', autoFontSize);
 
-  componentDidUpdate = () => autoFontSize();
-
-  windowActivator = () => {
-    if (window.innerWidth > 768) {
-      this.setState({ active: true });
-      return;
-    }
-    console.log('trigger');
-    this.setState({ active: false })
-  }
-
   toggleMenu = () => {
-    const toggle = !this.state.active;
-
-    this.setState({ active: toggle })
-    console.log(this.state);
+    this.props.toggleHistory();
+    this.props.toggleMain();
   }
 
   render () {
-    const { active } = this.state;
-    const { data, todayTodo, onComplete, onDelete } = this.props;
+    const { data, todayTodo, activeHistory, toggleHistory, onComplete, onDelete } = this.props;
 
     return (
-      <div className="History" style={{ height: active ? '100vh' : '10vh' }}>
+      <div className="History" style={{ height: activeHistory ? '100vh' : '10vh' }}>
         <div className="History--header">
           <button className="menu-btn" onClick={this.toggleMenu}>
             <img src={menu} alt="Menu" />
           </button>
-          <h2>History</h2>
+          {activeHistory ? <h2>History</h2> : <h2>One Thing</h2>}
         </div>
-        {active &&
+        {activeHistory &&
           <div className="History--main">
           {data.map((todo, index) => {
             return (
@@ -78,6 +63,8 @@ History.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
+  activeHistory: PropTypes.bool.isRequired,
+  toggleHistory: PropTypes.func.isRequired,
   onComplete: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired
 }

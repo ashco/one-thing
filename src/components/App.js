@@ -60,10 +60,34 @@ class App extends Component {
           status: false
         }
       ],
-      deleted: {
+      lastDelete: {
 
-      }
+      },
+      activeMain: true,
+      activeHistory: true
     }
+  }
+
+  windowActivator = () => {
+    if (window.innerWidth > 768) {
+      this.setState({ activeHistory: true });
+      return;
+    }
+    this.setState({ activeHistory: false })
+  }
+
+  toggleMain = () => {
+    if (window.innerWidth <= 768 && this.state.activeHistory === true) {
+      this.setState({ activeMain: true });
+      return;
+    }
+    this.setState({ activeMain: false });
+
+  }
+
+  toggleHistory = () => {
+    const toggle = !this.state.activeHistory;
+    this.setState({ activeHistory: toggle })
   }
 
   handleSubmit = (unix, value, status) => {
@@ -90,9 +114,15 @@ class App extends Component {
     this.setState(() => ({ todos: newState }))
   }
 
+  componentDidMount () {
+    this.windowActivator();
+    window.addEventListener('resize', this.windowActivator);
+  }
+
+  componentWillUnmount = () => window.removeEventListener('resize', this.windowActivator);
 
   render() {
-    const { todos } = this.state;
+    const { todos, activeMain, activeHistory } = this.state;
     const currentUnix = getCurrentUnix();
     let todayTodo = false;
 
@@ -108,17 +138,22 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Main
-          currentUnix={currentUnix}
-          todayTodo={todayTodo}
-          onSubmit={this.handleSubmit}
-          onComplete={this.handleComplete}
-          onDelete={this.handleDelete} />
-        <History
-          data={todos}
-          todayTodo={todayTodo}
-          onComplete={this.handleComplete}
-          onDelete={this.handleDelete} />
+        {activeMain &&
+          <Main
+            currentUnix={currentUnix}
+            todayTodo={todayTodo}
+            onSubmit={this.handleSubmit}
+            onComplete={this.handleComplete}
+            onDelete={this.handleDelete} />}
+          <History
+            data={todos}
+            todayTodo={todayTodo}
+            activeMain={activeMain}
+            activeHistory={activeHistory}
+            toggleMain={this.toggleMain}
+            toggleHistory={this.toggleHistory}
+            onComplete={this.handleComplete}
+            onDelete={this.handleDelete} />
       </div>
     );
   }

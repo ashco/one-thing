@@ -1,7 +1,12 @@
 import moment from 'moment';
 import axios from 'axios';
+require('dotenv').config();
 
-const quoteUrl = 'https://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en';
+const quoteUrl = 'https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en';
+
+const imgUrl = 'https://api.unsplash.com/collections/featured?client_id=';
+
+const query = imgUrl + process.env.REACT_APP_UNSPLASH_CLIENT_ID;
 
 // TIME
 export function getCurrentUnix () {
@@ -28,9 +33,9 @@ export function sameDateCheck (current, todo) {
 
 // API
 export function getQuote () {
-  axios.get(quoteUrl)
+  axios.get(query)
     .then(data => {
-      console.log(data);
+      return data;
     })
     .catch(error => {
       console.warn(error);
@@ -38,7 +43,6 @@ export function getQuote () {
 }
 
 // Font Size
-
 export function autoFontSize () {
   const cards = Array.from(document.querySelectorAll('.CardMain'));
 
@@ -72,8 +76,6 @@ export function autoFontSize () {
         textContent.style.fontSize = `${fontSize}rem`;
         textHeight = textContent.offsetHeight;
       }
-
-
     }
   })
 }
