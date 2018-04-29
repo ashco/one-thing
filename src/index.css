@@ -5,13 +5,18 @@
   --black-trans-color: rgba(58, 58, 58, 0.5);
   --black-color: #3a3a3a;
   --black-alt-color: #272727;
-  --gray-color: #757575;
+  --gray-color: #5e5e5e;
   --green-trans-color: rgba(108, 184, 78, 0.5);
   --green-color: #6cb84e;
   --green-alt-color: #5eaa3f;
   --red-trans-color: rgba(247, 89, 84, 0.5);
   --red-color: #f75954;
   --red-alt-color: #e23e39;
+}
+
+h1 {
+  font-weight: 400;
+  font-size: 1.8rem;
 }
 
 h2 {
@@ -49,12 +54,12 @@ body {
 .Main {
   grid-area: Main;
   display: grid;
-  grid-template-rows: 10% 1fr 10%;
+  grid-template-rows: 8% 5% 1fr 10%;
   justify-items: center;
   align-items: center;
 }
 
-.Main h2 {
+.Main--header {
 
 }
 
@@ -144,7 +149,7 @@ form .btn-container {
 .History {
   grid-area: History;
   display: grid;
-  grid-template-rows: 10vh 1fr;
+  grid-template-rows: 8% 1fr;
   background-color: rgba(0,0,0,0.25);
 }
 
@@ -240,7 +245,7 @@ form .btn-container {
 @media (max-width: 768px) {
   .App {
     grid-template-columns: 1fr;
-    grid-template-rows: 100vh 90vh;
+    grid-template-rows: 100vh 92vh;
     grid-template-areas:
       "History"
       "Main";
@@ -248,13 +253,17 @@ form .btn-container {
 
   .Main {
     position: absolute;
-    top: 10vh;
-    height: 90vh;
+    grid-template-rows: 8% 1fr 10%;
+    top: 8vh;
+    height: 92vh;
     width: 100vw;
   }
 
+  .Main h1 {
+    display: none;
+  }
+
   .History {
-    /* overflow-; */
     z-index: 1;
   }
 
@@ -267,13 +276,18 @@ form .btn-container {
     background: rgba(0,0,0,0);
     outline: none;
     display: initial;
-
   }
 
   .History--header {
     display: grid;
-    grid-template-columns: 10% 1fr 10%;
-    height: 10vh;
+    grid-template-columns: 8% 1fr 8%;
+    height: 8vh;
+  }
+
+  .History h1 {
+    color: var(--card-text-color);
+    align-self: center;
+    text-align: center;
   }
 
   .Card {

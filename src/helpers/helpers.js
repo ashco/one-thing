@@ -1,6 +1,4 @@
 import moment from 'moment';
-import axios from 'axios';
-
 
 // TIME
 export function getCurrentUnix () {
@@ -27,8 +25,7 @@ export function sameDateCheck (current, todo) {
 
 // Local Storage
 export function setLocalStorage () {
-  const data = JSON.parse(localStorage.getItem('data')) || [];
-  return data;
+  return JSON.parse(localStorage.getItem('data')) || [];
 }
 
 export function updateLocalStorage (data) {
@@ -40,7 +37,6 @@ export function autoFontSize () {
   const cards = Array.from(document.querySelectorAll('.CardMain'));
 
   if (cards < 0) {
-    console.log('NO CARDS');
     return;
   }
 
@@ -70,5 +66,5 @@ export function autoFontSize () {
         textHeight = textContent.offsetHeight;
       }
     }
-  })
+  });
 }

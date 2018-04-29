@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatMain } from '../helpers/helpers';
 
-
 export function Date (props) {
   const { currentUnix } = props;
   const date = formatMain(currentUnix);
@@ -18,16 +17,9 @@ class Form extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      input: '',
-      maxLimit: true
-   }
+      input: ''
+    }
   }
-
-  btnWarning () {
-
-  }
-
-
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -36,7 +28,6 @@ class Form extends React.Component {
       console.log('Character Limit Reached');
       return;
     }
-
     this.setState(() => ({ input: value }));
   }
 
@@ -67,7 +58,7 @@ class Form extends React.Component {
   }
 
   render () {
-    const { input, maxLimit } = this.state;
+    const { input } = this.state;
     const { todayTodo } = this.props;
 
     return (
@@ -86,13 +77,13 @@ class Form extends React.Component {
         />
         <div className='btn-container'>
         {todayTodo === false &&
-              <button
-              className='btn-large btn-set'
-              type='submit'
-              style={{backgroundColor: !input ? 'var(--gray-color)' : ''}}
-              disabled={!input}>
-              Set
-            </button>}
+          <button
+            className='btn-large btn-set'
+            type='submit'
+            style={{backgroundColor: !input ? 'var(--gray-color)' : ''}}
+            disabled={!input}>
+            Set
+          </button>}
         {todayTodo === 'incomplete' &&
           <div>
             <button
@@ -106,7 +97,7 @@ class Form extends React.Component {
               ✓
             </button>
           </div>}
-          </div>
+        </div>
       </form>
     )
   }
@@ -129,21 +120,22 @@ function Main (props) {
 
   return (
     <div className="Main">
+      <h1>One Thing</h1>
       <Date currentUnix={currentUnix} />
       {todayTodo !== 'complete' &&
-      <Form
-        currentUnix={currentUnix}
-        todayTodo={todayTodo}
-        onSubmit={onSubmit}
-        onDelete={onDelete}
-        onComplete={onComplete} />}
+        <Form
+          currentUnix={currentUnix}
+          todayTodo={todayTodo}
+          onSubmit={onSubmit}
+          onDelete={onDelete}
+          onComplete={onComplete} />}
       {todayTodo === 'complete' &&
-      <div className='complete-msg'>
-        <p>Great job! See you tomorrow.</p>
-      </div>}
-      <div>
-        <h2 className='quote'>Motivational quote goes here...</h2>
-      </div>
+        <div className='complete-msg'>
+          <p>Great job! See you tomorrow.</p>
+        </div>}
+        <div>
+          <h2 className='quote'>Motivational quote here...</h2>
+        </div>
     </div>
   )
 }

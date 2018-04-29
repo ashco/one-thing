@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Card from './Card';
+import PropTypes from 'prop-types';
 import menu from '../menu_icon.svg';
 import { autoFontSize } from '../helpers/helpers';
 
 class History extends React.Component {
-  componentDidMount () {
+  componentDidMount = () => {
     autoFontSize();
     window.addEventListener('resize', autoFontSize);
   }
@@ -18,15 +18,15 @@ class History extends React.Component {
   }
 
   render () {
-    const { data, todayTodo, activeHistory, toggleHistory, onComplete, onDelete } = this.props;
+    const { data, todayTodo, activeHistory, onComplete, onDelete } = this.props;
 
     return (
-      <div className="History" style={{ height: activeHistory ? '100vh' : '10vh' }}>
+      <div className="History" style={{ height: activeHistory ? '100vh' : '8vh' }}>
         <div className="History--header">
           <button className="menu-btn" onClick={this.toggleMenu}>
             <img src={menu} alt="Menu" />
           </button>
-          {activeHistory ? <h2>History</h2> : <h2>One Thing</h2>}
+          {activeHistory ? <h2>History</h2> : <h1>One Thing</h1>}
         </div>
         {activeHistory &&
           <div className="History--main">
@@ -49,13 +49,16 @@ class History extends React.Component {
   }
 }
 
+
 History.propTypes = {
   data: PropTypes.array.isRequired,
   todayTodo: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool
   ]),
+  activeMain: PropTypes.bool.isRequired,
   activeHistory: PropTypes.bool.isRequired,
+  toggleMain: PropTypes.func.isRequired,
   toggleHistory: PropTypes.func.isRequired,
   onComplete: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired
