@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import { formatCard } from '../helpers/helpers';
 require('dotenv').config();
 
-class CardMain extends React.Component {
-  render () {
-    const { unix, text } = this.props;
-    const date = formatCard(unix);
+function CardMain (props) {
+  const { unix, text } = props;
+  const date = formatCard(unix);
 
-    return (
-      <div className='CardMain'>
-        <h3 className='CardMain--textbox'>{text}</h3>
-        <p className='CardMain--date'>-{date}</p>
-      </div>
-    )
-  }
+  return (
+    <div className='CardMain'>
+      <h3 className='CardMain--textbox'>{text}</h3>
+      <p className='CardMain--date'>-{date}</p>
+    </div>
+  )
 }
 
 CardMain.propTypes = {
@@ -23,17 +21,78 @@ CardMain.propTypes = {
   text: PropTypes.string.isRequired
 }
 
-class CardHover extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state =  ({
-      isBtnHovered: false
-    })
+function CardHoverComplete (props) {
+  const { deleteBtnHover, handleDeleteBtnHover, handleDelete } = props;
+
+  return (
+    <div className='CardHover' style={{backgroundColor: !deleteBtnHover ? 'var(--green-color)' : 'var(--red-color)'}}>
+      <h2>{!deleteBtnHover ? 'Complete!' : 'Delete?'}</h2>
+      <button
+        onMouseEnter={handleDeleteBtnHover}
+        onMouseLeave={handleDeleteBtnHover}
+        className='btn-small'
+        style={{backgroundColor: !deleteBtnHover ? 'var(--green-alt-color)' : 'var(--red-alt-color)'}}
+        onClick={handleDelete}
+        >
+          ✕
+      </button>
+    </div>
+  )
+}
+
+function CardHoverIncomplete (props) {
+  const { completeBtnHover, deleteBtnHover, handleCompleteBtnHover, handleDeleteBtnHover, handleComplete, handleDelete } = props;
+
+  let title = 'Busy, huh...';
+  let backgroundColor = 'var(--black-color)';
+  let completeBtnColor = 'var(--black-alt-color)';
+  let deleteBtnColor = 'var(--black-alt-color)';
+
+  if (completeBtnHover) {
+    title = 'Complete!';
+    backgroundColor = 'var(--green-color)'
+    completeBtnColor = 'var(--green-alt-color)';
+    deleteBtnColor = 'var(--green-color)';
+  }
+  else if (deleteBtnHover) {
+    title = 'Delete?';
+    backgroundColor = 'var(--red-color)'
+    completeBtnColor = 'var(--red-color)';
+    deleteBtnColor = 'var(--red-alt-color)';
   }
 
-  handleBtnHover = () => {
-    this.setState(() => ({ isBtnHovered: !this.state.isBtnHovered }))
-  }
+  return (
+    <div className='CardHover' style={{backgroundColor: backgroundColor}}>
+      <h2>{title}</h2>
+      <div className="CardHover--btn-container">
+        <button
+          onMouseEnter={handleCompleteBtnHover}
+          onMouseLeave={handleCompleteBtnHover}
+          className='btn-small'
+          style={{backgroundColor: completeBtnColor}}
+          onClick={handleComplete}
+          >
+            ✓
+        </button>
+        <button
+          onMouseEnter={handleDeleteBtnHover}
+          onMouseLeave={handleDeleteBtnHover}
+          className='btn-small'
+          style={{backgroundColor: deleteBtnColor}}
+          onClick={handleDelete}
+          >
+            ✕
+        </button>
+      </div>
+    </div>
+  )
+}
+
+
+class CardHover extends React.Component {
+
+
+
 
   handleComplete = (event) => {
     event.preventDefault();
@@ -50,64 +109,24 @@ class CardHover extends React.Component {
   }
 
   render () {
-    const { isBtnHovered } = this.state;
-    const { status } = this.props;
+    const { index, status, completeBtnHover, deleteBtnHover, handleCompleteBtnHover, handleDeleteBtnHover, onComplete, onDelete } = this.props;
 
-    let format = {};
-
-    if (isBtnHovered && status) {
-      format = {
-        func: this.handleDelete,
-        style: {
-          backgroundColor: 'var(--red-color)'
-        },
-        btnStyle: {
-          backgroundColor: 'var(--red-alt-color)'
-        },
-        text: 'Delete?',
-        button: '✕'
-      }
-    }
-    else if (status || isBtnHovered && !status) {
-      format = {
-        func: this.handleComplete,
-        style: {
-          backgroundColor: 'var(--green-color)'
-        },
-        btnStyle: {
-          backgroundColor: 'var(--green-alt-color)'
-        },
-        text: 'Complete!',
-        button: '✓'
-      }
+    if (status) {
+      return <CardHoverComplete
+        deleteBtnHover={deleteBtnHover}
+        handleDeleteBtnHover={handleDeleteBtnHover}
+        handleDelete={this.handleDelete} />
     }
     else if (!status) {
-      format = {
-        func: this.handleDelete,
-        style: {
-          backgroundColor: 'var(--black-color)'
-        },
-        btnStyle: {
-          backgroundColor: 'var(--black-alt-color)'
-        },
-        text: 'Busy, huh...',
-        button: '...'
-      }
+      return <CardHoverIncomplete
+        completeBtnHover={completeBtnHover}
+        deleteBtnHover={deleteBtnHover}
+        handleCompleteBtnHover={handleCompleteBtnHover}
+        handleDeleteBtnHover={handleDeleteBtnHover}
+        handleComplete={this.handleComplete}
+        handleDelete={this.handleDelete}
+        />
     }
-
-    return (
-      <div className='CardHover' style={format.style}>
-        <h2>{format.text}</h2>
-          <button
-            onMouseEnter={this.handleBtnHover}
-            onMouseLeave={this.handleBtnHover}
-            className='btn-small'
-            style={format.btnStyle}
-            onClick={format.func}>
-              {format.button}
-          </button>
-      </div>
-    )
   }
 }
 
@@ -118,28 +137,60 @@ CardHover.propTypes = {
   onDelete: PropTypes.func.isRequired
 }
 
-function Card (props) {
-  const { index, todayTodo, unix, text, status, onComplete, onDelete } = props;
-
-  if (index === 0 && todayTodo === 'incomplete') {
-    return '';
+class Card extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state =  ({
+      completeBtnHover: false,
+      deleteBtnHover: false,
+    })
   }
-  else {
-    return (
-      <div
-        className='Card'
-        style={{borderColor: status ? 'var(--green-color)' : 'var(--black-color)'}}>
-        <CardMain
-          index={index}
-          unix={unix}
-          text={text} />
-        <CardHover
-          index={index}
-          status={status}
-          onComplete={onComplete}
-          onDelete={onDelete} />
-      </div>
-    )
+
+  handleCompleteBtnHover = () => {
+    this.setState(() => ({ completeBtnHover: !this.state.completeBtnHover }))
+  }
+
+  handleDeleteBtnHover = () => {
+    this.setState(() => ({ deleteBtnHover: !this.state.deleteBtnHover }))
+  }
+
+  render () {
+    const { completeBtnHover, deleteBtnHover } = this.state;
+    const { index, todayTodo, unix, text, status, onComplete, onDelete } = this.props;
+
+    let borderColor = 'var(--black-trans-color)';
+
+    if (deleteBtnHover) {
+      borderColor = 'var(--red-trans-color)';
+    }
+    else if (completeBtnHover || status) {
+      borderColor = 'var(--green-trans-color)';
+    }
+
+    if (index === 0 && todayTodo === 'incomplete') {
+      return '';
+    }
+    else {
+      return (
+        <div
+          className='Card'
+          style={{borderColor: borderColor}}>
+          <CardMain
+            index={index}
+            unix={unix}
+            text={text} />
+          <CardHover
+            index={index}
+            status={status}
+            completeBtnHover={completeBtnHover}
+            deleteBtnHover={deleteBtnHover}
+            handleCompleteBtnHover={this.handleCompleteBtnHover}
+            handleDeleteBtnHover={this.handleDeleteBtnHover}
+            onComplete={onComplete}
+            onDelete={onDelete} />
+        </div>
+      )
+    }
   }
 }
 
