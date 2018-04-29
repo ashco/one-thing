@@ -1,31 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { formatMain, sameDateCheck, getQuote } from '../helpers/helpers';
 
-// getQuote();
 
 function Date (props) {
   const { currentUnix } = props;
   const date = formatMain(currentUnix);
 
-  return (
-    <h2>{date}</h2>
-  )
+  return <h2>{date}</h2>;
+}
+
+Date.propTypes = {
+  currentUnix: PropTypes.number.isRequired
 }
 
 class Form extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      todo: ''
-    }
+      todo: '',
+      maxLimit: true
+   }
+  }
+
+  btnWarning () {
+
   }
 
   handleChange = (event) => {
     const value = event.target.value;
 
-    this.setState(() => ({
-      todo: value
-    }));
+    if (value.length >= 120) {
+      console.log('Character Limit Reached');
+      return;
+    }
+
+    this.setState(() => ({ todo: value }));
   }
 
   handleSubmit = (event) => {
@@ -40,9 +50,7 @@ class Form extends React.Component {
     event.preventDefault();
     const { onDelete } = this.props;
 
-    this.setState(() => ({
-      todo: ''
-    }));
+    this.setState(() => ({ todo: '' }));
 
     onDelete(0);
   }
@@ -51,19 +59,17 @@ class Form extends React.Component {
     event.preventDefault();
     const { onComplete } = this.props;
 
-    this.setState(() => ({
-      todo: 'Great job! See you tomorrow.'
-    }));
+    this.setState(() => ({ todo: 'Great job! See you tomorrow.' }));
 
     onComplete(0);
   }
 
   render () {
-    const { todo } = this.state;
+    const { todo, maxLimit } = this.state;
     const { todayTodo } = this.props;
 
     return (
-      <form className='column' onSubmit={this.handleSubmit} >
+      <form className='column' onSubmit={this.handleSubmit}>
         <input
           type='text'
           id='todo'
@@ -78,7 +84,7 @@ class Form extends React.Component {
         />
         <div className='btn-container'>
         {todayTodo === false &&
-            <button
+              <button
               className='btn-large btn-set'
               type='submit'
               style={{backgroundColor: !todo ? 'var(--gray-color)' : ''}}
@@ -104,6 +110,17 @@ class Form extends React.Component {
   }
 }
 
+Form.propTypes = {
+  currentUnix: PropTypes.number.isRequired ,
+  todayTodo: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
+  onSubmit: PropTypes.func.isRequired,
+  onComplete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+}
+
 function Main (props) {
 
   const { currentUnix, todayTodo, onSubmit, onDelete, onComplete } = props;
@@ -127,6 +144,17 @@ function Main (props) {
       </div>
     </div>
   )
+}
+
+Main.propTypes = {
+  currentUnix: PropTypes.number.isRequired,
+  todayTodo: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
+  onSubmit: PropTypes.func.isRequired,
+  onComplete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
 export default Main;

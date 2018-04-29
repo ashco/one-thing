@@ -24,8 +24,45 @@ class App extends Component {
           unix: 1454711086746,
           text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
           status: false
+        },
+        {
+          unix: 1424711086746,
+          text: 'Eat double chicken wings',
+          status: true
+        },{
+          unix: 1044711086746,
+          text: 'Get a job',
+          status: false
+        },{
+          unix: 1324711086746,
+          text: 'Build a house',
+          status: true
+        },{
+          unix: 1454711086746,
+          text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
+          status: false
+        },
+        {
+          unix: 1424711086746,
+          text: 'Eat double chicken wings',
+          status: true
+        },{
+          unix: 1044711086746,
+          text: 'Get a job',
+          status: false
+        },{
+          unix: 1324711086746,
+          text: 'Build a house',
+          status: true
+        },{
+          unix: 1454711086746,
+          text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
+          status: false
         }
-      ]
+      ],
+      deleted: {
+
+      }
     }
   }
 
@@ -43,18 +80,14 @@ class App extends Component {
     const newState = this.state.todos;
     newState.splice(index, 1);
 
-    this.setState(() => ({
-      todos: newState
-    }));
+    this.setState(() => ({ todos: newState }));
   }
 
   handleComplete = (index) => {
     const newState = this.state.todos;
     newState[index].status = true;
 
-    this.setState(() => ({
-      todos: newState
-    }))
+    this.setState(() => ({ todos: newState }))
   }
 
 

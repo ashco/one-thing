@@ -1,12 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 import { formatCard } from '../helpers/helpers';
 
 class CardMain extends React.Component {
-
-  // componentDidMount () {
-  //   autoFontSize(index);
-  // }
 
   render () {
     const { unix, text } = this.props;
@@ -14,27 +11,29 @@ class CardMain extends React.Component {
 
     return (
       <div className='CardMain'>
-        {/* <div className='CardMain--textbox'> */}
-          <h3 className='CardMain--textbox'>{text}</h3>
-        {/* </div> */}
+        <h3 className='CardMain--textbox'>{text}</h3>
         <p className='CardMain--date'>-{date}</p>
       </div>
     )
   }
 }
 
+CardMain.propTypes = {
+  index: PropTypes.number.isRequired,
+  unix: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired
+}
+
 class CardHover extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
+    this.state =  ({
       isBtnHovered: false
-    }
+    })
   }
 
   handleBtnHover = () => {
-    this.setState(() => ({
-      isBtnHovered: !this.state.isBtnHovered
-    }))
+    this.setState(() => ({ isBtnHovered: !this.state.isBtnHovered }))
   }
 
   handleComplete = (event) => {
@@ -113,27 +112,49 @@ class CardHover extends React.Component {
   }
 }
 
+CardHover.propTypes = {
+  index: PropTypes.number.isRequired,
+  status: PropTypes.bool.isRequired,
+  onComplete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+}
+
 function Card (props) {
   const { index, todayTodo, unix, text, status, onComplete, onDelete } = props;
 
-  return (
-    <div
-      className='Card'
-      style={{
-        borderColor: status ? 'var(--green-color)' : 'var(--black-color)',
-        // display: todayTodo === 'incomplete' && index === 0 ? 'none' : ''
-        }}>
-      <CardMain
-        index={index}
-        unix={unix}
-        text={text} />
-      <CardHover
-        index={index}
-        status={status}
-        onComplete={onComplete}
-        onDelete={onDelete} />
-    </div>
-  )
+  if (index === 0 && todayTodo === 'incomplete') {
+    return '';
+  }
+  else {
+    return (
+      <div
+        className='Card'
+        style={{borderColor: status ? 'var(--green-color)' : 'var(--black-color)'}}>
+        <CardMain
+          index={index}
+          unix={unix}
+          text={text} />
+        <CardHover
+          index={index}
+          status={status}
+          onComplete={onComplete}
+          onDelete={onDelete} />
+      </div>
+    )
+  }
+}
+
+Card.propTypes = {
+  index: PropTypes.number.isRequired,
+  todayTodo: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
+  unix: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  status: PropTypes.bool.isRequired,
+  onComplete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
 export default Card;

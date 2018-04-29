@@ -139,14 +139,25 @@ form .btn-container {
 .History {
   grid-area: History;
   display: grid;
-  grid-template-rows: 10% 1fr;
-  overflow-y: scroll;
+  grid-template-rows: 10vh 1fr;
   background-color: var(--secondary-color);
+}
+
+.History--header {
+  display: grid;
+}
+
+.History .menu-btn {
+  display: none;
 }
 
 .History h2 {
   text-align: center;
   align-self: center;
+}
+
+.History--main {
+  overflow-y: scroll;
 }
 
 .Card {
@@ -161,15 +172,10 @@ form .btn-container {
 .CardMain {
   display: grid;
   grid-template-columns: 80% 20%;
-  /* justify-content: space-between; */
   background-color: var(--main-color);
   height: 100%;
 }
 
-/* .CardMain--textbox {
-  display: flex;
-  align-items: center;
-} */
 
 .CardMain--textbox {
   align-self: center;
@@ -228,13 +234,43 @@ form .btn-container {
 @media (max-width: 768px) {
   .App {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 90vh;
+    grid-template-rows: 100vh 90vh;
     grid-template-areas:
       "History"
       "Main";
   }
 
+  .Main {
+    position: absolute;
+    top: 10vh;
+    height: 90vh;
+    width: 100vw;
+  }
+
   .History {
-    overflow-y: visible;
+    /* overflow-; */
+    z-index: 1;
+  }
+
+
+  .History .menu-btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    justify-self: center;
+    align-self: center;
+    background: rgba(0,0,0,0);
+    outline: none;
+    display: initial;
+
+  }
+
+  .History--header {
+    display: grid;
+    grid-template-columns: 10% 1fr 10%;
+    height: 10vh;
+  }
+
+  .Card {
+    width: 80%;
   }
 }

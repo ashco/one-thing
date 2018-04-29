@@ -65,7 +65,7 @@ export function autoFontSize () {
       }
 
       while ((textHeight + textMargin) > cardHeight) {
-        if (fontSize < 0.9) {
+        if (fontSize < 0.80) {
           return;
         }
         fontSize = fontSize - 0.05;
