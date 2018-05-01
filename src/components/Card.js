@@ -111,16 +111,18 @@ class CardHover extends React.Component {
 
   handleComplete = (event) => {
     event.preventDefault();
-    const { index, onComplete } = this.props;
+    const { index, handleStreak, onComplete } = this.props;
 
     onComplete(index);
+    handleStreak();
   }
 
   handleDelete = (event) => {
     event.preventDefault();
-    const { index, onDelete } = this.props;
+    const { index, handleStreak, onDelete } = this.props;
 
     onDelete(index);
+    handleStreak();
   }
 
   render () {
@@ -171,7 +173,7 @@ class Card extends React.Component {
 
   render () {
     const { completeBtnHover, deleteBtnHover } = this.state;
-    const { index, todayTodo, unix, text, status, onComplete, onDelete } = this.props;
+    const { index, todayTodo, unix, text, status, handleStreak, onComplete, onDelete } = this.props;
     let borderColor = 'var(--black-trans-color)';
 
     if (deleteBtnHover) {
@@ -195,6 +197,7 @@ class Card extends React.Component {
           <CardHover
             index={index}
             status={status}
+            handleStreak={handleStreak}
             completeBtnHover={completeBtnHover}
             deleteBtnHover={deleteBtnHover}
             handleCompleteBtnHover={this.handleCompleteBtnHover}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Main from './Main';
 import History from './History';
-import { getCurrentUnix, sameDateCheck, setLocalStorage, updateLocalStorage } from '../helpers/helpers';
+import { getCurrentUnix, sameDateCheck, streakCalc, setLocalStorage, updateLocalStorage } from '../helpers/helpers';
+
 
 class App extends Component {
   constructor (props) {
@@ -9,27 +10,34 @@ class App extends Component {
     this.state = {
       data: [
         {
-          unix: 1424711086746,
+          unix: 1525158224820,
+          text: 'Tooty Fruiti',
+          status: true
+        },{
+          unix: 1525140679368,
           text: 'Eat double chicken wings',
           status: true
         },{
-          unix: 1044711086746,
+          unix: 1525018079368,
           text: 'Get a job',
           status: false
         },{
-          unix: 1324711086746,
+          unix: 1524908079368,
           text: 'Build a house',
           status: true
         },{
-          unix: 1454711086746,
+          unix: 1524440679368,
           text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
           status: false
         }
       ],
+      streak: 0,
       activeMain: true,
-      activeHistory: true
+      activeHistory: true,
     }
   }
+
+
 
   windowActivator = () => {
     if (window.innerWidth > 768) {
@@ -81,20 +89,29 @@ class App extends Component {
     // updateLocalStorage(this.state.data);
   }
 
+  handleStreak = () => {
+    const { data } = this.state;
+
+    const streak = streakCalc(data);
+    this.setState({ streak });
+  }
+
   componentDidMount () {
-    let data = setLocalStorage();
+    // let data = setLocalStorage();
     // this.setState({ data: data })
 
     this.windowActivator();
+    this.handleStreak();
     window.addEventListener('resize', this.windowActivator);
   }
 
   componentWillUnmount = () => window.removeEventListener('resize', this.windowActivator);
 
   render() {
-    const { data, activeMain, activeHistory } = this.state;
+    const { data, streak, activeMain, activeHistory } = this.state;
     const currentUnix = getCurrentUnix();
     let todayTodo = false;
+
 
     if (typeof data[0] !== 'undefined') {
       todayTodo = sameDateCheck(currentUnix, data[0].unix);
@@ -112,6 +129,8 @@ class App extends Component {
           <Main
             currentUnix={currentUnix}
             todayTodo={todayTodo}
+            streak={streak}
+            handleStreak={this.handleStreak}
             onSubmit={this.handleSubmit}
             onComplete={this.handleComplete}
             onDelete={this.handleDelete} />}
@@ -120,6 +139,7 @@ class App extends Component {
             todayTodo={todayTodo}
             activeMain={activeMain}
             activeHistory={activeHistory}
+            handleStreak={this.handleStreak}
             toggleMain={this.toggleMain}
             toggleHistory={this.toggleHistory}
             onComplete={this.handleComplete}

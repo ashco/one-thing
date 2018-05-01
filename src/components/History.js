@@ -20,10 +20,7 @@ class History extends React.Component {
   }
 
   render () {
-    const { data, todayTodo, activeHistory, onComplete, onDelete } = this.props;
-
-    // let cardMap =
-
+    const { data, todayTodo, activeHistory, handleStreak, onComplete, onDelete } = this.props;
 
     return (
       <div className="History" style={{ height: activeHistory ? '100vh' : '10vh' }}>
@@ -46,6 +43,7 @@ class History extends React.Component {
                   unix={todo.unix}
                   text={todo.text}
                   status={todo.status}
+                  handleStreak={handleStreak}
                   onComplete={onComplete}
                   onDelete={onDelete} />
               )

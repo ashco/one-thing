@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMain } from '../helpers/helpers';
+import { formatMain, streakCalc } from '../helpers/helpers';
 
 export function Date (props) {
   const { currentUnix } = props;
@@ -41,7 +41,7 @@ class Form extends React.Component {
 
   handleReset = (event) => {
     event.preventDefault();
-    const { onDelete } = this.props;
+    const { onDelete, handleStreak } = this.props;
 
     this.setState(() => ({ input: '' }));
 
@@ -50,11 +50,12 @@ class Form extends React.Component {
 
   handleComplete = (event) => {
     event.preventDefault();
-    const { onComplete } = this.props;
+    const { onComplete, handleStreak } = this.props;
 
     this.setState(() => ({ input: 'Great job! See you tomorrow.' }));
 
     onComplete(0);
+    handleStreak();
   }
 
   render () {
@@ -114,30 +115,40 @@ Form.propTypes = {
   onDelete: PropTypes.func.isRequired
 }
 
-function Main (props) {
+class Main extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      streak: 0
+    }
+  }
 
-  const { currentUnix, todayTodo, onSubmit, onDelete, onComplete } = props;
+  render () {
+    const { currentUnix, todayTodo, streak, handleStreak, onSubmit, onDelete, onComplete } = this.props;
 
-  return (
-    <div className="Main">
-      <h1>One Thing</h1>
-      <Date currentUnix={currentUnix} />
-      {todayTodo !== 'complete' &&
-        <Form
-          currentUnix={currentUnix}
-          todayTodo={todayTodo}
-          onSubmit={onSubmit}
-          onDelete={onDelete}
-          onComplete={onComplete} />}
-      {todayTodo === 'complete' &&
-        <div className='complete-msg'>
-          <p>Great job! See you tomorrow.</p>
-        </div>}
-        <div>
-          <h2 className='quote'>Motivational quote here...</h2>
-        </div>
-    </div>
-  )
+    return (
+      <div className="Main">
+        <h1>One Thing</h1>
+        <Date currentUnix={currentUnix} />
+        {todayTodo !== 'complete' &&
+          <Form
+            currentUnix={currentUnix}
+            todayTodo={todayTodo}
+            handleStreak={handleStreak}
+            onSubmit={onSubmit}
+            onDelete={onDelete}
+            onComplete={onComplete} />}
+        {todayTodo === 'complete' &&
+          <div className='complete-msg'>
+            <p>{streak > 1 ? `${streak} days in a row! Great job!` : 'Great job! See you tomorrow.'}</p>
+          </div>}
+          <div>
+            <h2 className='quote'>Motivational quote here...</h2>
+          </div>
+      </div>
+    )
+  }
+
 }
 
 Main.propTypes = {
@@ -146,6 +157,7 @@ Main.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
+  handleStreak: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onComplete: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired

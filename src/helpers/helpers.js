@@ -23,6 +23,24 @@ export function sameDateCheck (current, todo) {
   return currentDate === todoDate ? true : false;
 }
 
+// Streak Calculator
+export function streakCalc (data) {
+  const filterData = data.filter(todo => todo.status === true);
+  if (filterData.length === 0) {
+    return;
+  }
+
+  let i = 0;
+  while (moment(filterData[i].unix).add(i, 'd').format('l') === moment().format('l')) {
+    i++;
+    if (i >= filterData.length) {
+      break;
+    }
+  }
+  return i;
+}
+
+
 // Local Storage
 export function setLocalStorage () {
   return JSON.parse(localStorage.getItem('data')) || [];
