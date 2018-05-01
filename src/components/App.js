@@ -7,7 +7,25 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      data: [],
+      data: [
+        {
+          unix: 1424711086746,
+          text: 'Eat double chicken wings',
+          status: true
+        },{
+          unix: 1044711086746,
+          text: 'Get a job',
+          status: false
+        },{
+          unix: 1324711086746,
+          text: 'Build a house',
+          status: true
+        },{
+          unix: 1454711086746,
+          text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
+          status: false
+        }
+      ],
       activeMain: true,
       activeHistory: true
     }
@@ -42,7 +60,7 @@ class App extends Component {
         status
       }, ...this.state.data]
     }));
-    updateLocalStorage(this.state.data);
+    // updateLocalStorage(this.state.data);
   }
 
   handleDelete = (index) => {
@@ -51,7 +69,7 @@ class App extends Component {
 
     this.setState(() => ({ data: newState }));
 
-    updateLocalStorage(this.state.data);
+    // updateLocalStorage(this.state.data);
   }
 
   handleComplete = (index) => {
@@ -60,12 +78,12 @@ class App extends Component {
 
     this.setState(() => ({ data: newState }))
 
-    updateLocalStorage(this.state.data);
+    // updateLocalStorage(this.state.data);
   }
 
   componentDidMount () {
     let data = setLocalStorage();
-    this.setState({ data: data })
+    // this.setState({ data: data })
 
     this.windowActivator();
     window.addEventListener('resize', this.windowActivator);

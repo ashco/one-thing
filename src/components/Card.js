@@ -25,15 +25,17 @@ function CardHoverComplete (props) {
   return (
     <div className='CardHover' style={{backgroundColor: !deleteBtnHover ? 'var(--green-color)' : 'var(--red-color)'}}>
       <h2>{!deleteBtnHover ? 'Complete!' : 'Delete?'}</h2>
-      <button
-        onMouseEnter={handleDeleteBtnHover}
-        onMouseLeave={handleDeleteBtnHover}
-        className='btn-small'
-        style={{backgroundColor: !deleteBtnHover ? 'var(--green-alt-color)' : 'var(--red-alt-color)'}}
-        onClick={handleDelete}
-        >
-          ✕
-      </button>
+      <div className="CardHover--btn-container">
+        <button
+          onMouseEnter={handleDeleteBtnHover}
+          onMouseLeave={handleDeleteBtnHover}
+          className='btn-small'
+          style={{backgroundColor: !deleteBtnHover ? 'var(--green-alt-color)' : 'var(--red-alt-color)'}}
+          onClick={handleDelete}
+          >
+            ✕
+        </button>
+      </div>
     </div>
   )
 }
@@ -49,7 +51,7 @@ CardHoverComplete.propTypes = {
 function CardHoverIncomplete (props) {
   const { completeBtnHover, deleteBtnHover, handleCompleteBtnHover, handleDeleteBtnHover, handleComplete, handleDelete } = props;
 
-  let title = 'Busy, huh...';
+  let title = 'Busy?';
   let backgroundColor = 'var(--black-color)';
   let completeBtnColor = 'var(--black-alt-color)';
   let deleteBtnColor = 'var(--black-alt-color)';

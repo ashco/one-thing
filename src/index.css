@@ -54,7 +54,7 @@ body {
 .Main {
   grid-area: Main;
   display: grid;
-  grid-template-rows: 8% 5% 1fr 10%;
+  grid-template-rows: 10% 5% 1fr 10%;
   justify-items: center;
   align-items: center;
 }
@@ -147,9 +147,10 @@ form .btn-container {
 
 /* HISTORY */
 .History {
+  color: var(--card-text-color);
   grid-area: History;
   display: grid;
-  grid-template-rows: 8% 1fr;
+  grid-template-rows: 10% 1fr;
   background-color: rgba(0,0,0,0.25);
 }
 
@@ -161,8 +162,15 @@ form .btn-container {
   display: none;
 }
 
+.History-filler {
+  color: rgba(231, 231, 231, 0.75);
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 100;
+}
+
 .History h2 {
-  color: var(--card-text-color);
+
   text-align: center;
   align-self: center;
 }
@@ -190,7 +198,7 @@ form .btn-container {
 
 .CardMain--textbox {
   align-self: center;
-  color: var(--card-text-color);
+  /* color: var(--card-text-color); */
   font-size: 1.5rem;
   font-weight: 300;
   margin: 0.5rem 0.8rem;
@@ -198,7 +206,7 @@ form .btn-container {
 }
 
 .CardMain--date {
-  color: var(--card-text-color);
+  /* color: var(--card-text-color); */
   justify-self: right;
   align-self: flex-end;
   margin: .5rem;
@@ -241,11 +249,40 @@ form .btn-container {
   bottom: 0%;
 }
 
+@media (max-width: 1080px) {
+  .Main input {
+    font-size: 1.6rem;
+  }
+
+  .CardHover h2 {
+    font-size: 1.4rem;
+  }
+
+  .CardHover--btn-container {
+    margin: 8px;
+  }
+
+  .CardHover button {
+    height: 2.2rem;
+    width: 2.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .CardHover h2 {
+    font-size: 1rem;
+  }
+
+  .CardHover button {
+    height: 2rem;
+    width: 2rem;
+  }
+}
 
 @media (max-width: 768px) {
   .App {
     grid-template-columns: 1fr;
-    grid-template-rows: 100vh 92vh;
+    grid-template-rows: 100vh 90vh;
     grid-template-areas:
       "History"
       "Main";
@@ -253,9 +290,9 @@ form .btn-container {
 
   .Main {
     position: absolute;
-    grid-template-rows: 8% 1fr 10%;
-    top: 8vh;
-    height: 92vh;
+    grid-template-rows: 10% 1fr 10%;
+    top: 10vh;
+    height: 90vh;
     width: 100vw;
   }
 
@@ -276,12 +313,13 @@ form .btn-container {
     background: rgba(0,0,0,0);
     outline: none;
     display: initial;
+    margin-left: 30px;
   }
 
   .History--header {
     display: grid;
-    grid-template-columns: 8% 1fr 8%;
-    height: 8vh;
+    grid-template-columns: 10% 1fr 8%;
+    height: 10vh;
   }
 
   .History h1 {
@@ -292,5 +330,35 @@ form .btn-container {
 
   .Card {
     width: 80%;
+  }
+
+  .CardHover h2 {
+    font-size: 1.5rem;
+  }
+
+  .CardHover--btn-container {
+    margin: 16px;
+  }
+
+  .CardHover button {
+    height: 2.8rem;
+    width: 2.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .Main form {
+    height: 100px;
+    grid-template-rows: 50% 50%;
+  }
+
+  .Main input {
+    font-size: 1.15rem;
+    height: 45px;
+  }
+
+  .Main .btn-set {
+    height: 40px;
+    width: 90px;
   }
 }

@@ -10,6 +10,8 @@ class History extends React.Component {
     window.addEventListener('resize', autoFontSize);
   }
 
+  componentDidUpdate = () => autoFontSize();
+
   componentWillUnmount = () => window.removeEventListener('resize', autoFontSize);
 
   toggleMenu = () => {
@@ -20,8 +22,11 @@ class History extends React.Component {
   render () {
     const { data, todayTodo, activeHistory, onComplete, onDelete } = this.props;
 
+    // let cardMap =
+
+
     return (
-      <div className="History" style={{ height: activeHistory ? '100vh' : '8vh' }}>
+      <div className="History" style={{ height: activeHistory ? '100vh' : '10vh' }}>
         <div className="History--header">
           <button className="menu-btn" onClick={this.toggleMenu}>
             <img src={menu} alt="Menu" />
@@ -30,19 +35,21 @@ class History extends React.Component {
         </div>
         {activeHistory &&
           <div className="History--main">
-          {data.map((todo, index) => {
-            return (
-              <Card
-                key={index}
-                index={index}
-                todayTodo={todayTodo}
-                unix={todo.unix}
-                text={todo.text}
-                status={todo.status}
-                onComplete={onComplete}
-                onDelete={onDelete} />
-            )
-          })}
+          {data.length === 0 || data.length === 1 && todayTodo && data[0].status === false
+            ? <p className="History-filler">You should make history</p>
+            : data.map((todo, index) => {
+              return (
+                <Card
+                  key={index}
+                  index={index}
+                  todayTodo={todayTodo}
+                  unix={todo.unix}
+                  text={todo.text}
+                  status={todo.status}
+                  onComplete={onComplete}
+                  onDelete={onDelete} />
+              )
+           })}
         </div>}
       </div>
     )
