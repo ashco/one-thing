@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { formatMain, streakCalc, centerHeader } from '../helpers/helpers';
-
+import placeholderArr from '../helpers/placeholders';
 
 class MainHeader extends React.Component {
   constructor (props) {
@@ -50,7 +50,7 @@ class MainHeader extends React.Component {
         </div>
       : <div className="Main--header">
           <Date />
-        </div>)
+        </div>);
   }
 }
 
@@ -66,8 +66,15 @@ class Form extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      input: ''
+      placeholder: 'What will you to accomplish today?',
+      input: '',
     }
+  }
+
+  componentDidMount = () => {
+    const newPlaceholder = placeholderArr[Math.floor(Math.random() * placeholderArr.length)];
+
+    this.setState({ placeholder: newPlaceholder })
   }
 
   handleChange = (event) => {
@@ -108,15 +115,17 @@ class Form extends React.Component {
   }
 
   render () {
-    const { input } = this.state;
+    const { input, placeholder } = this.state;
     const { todayTodo } = this.props;
+
+    console.log(placeholder);
 
     return (
       <form className='column' onSubmit={this.handleSubmit}>
         <input
           type='text'
           id='input'
-          placeholder='What will you to accomplish today?'
+          placeholder={placeholder}
           value={input}
           style={{
             color: input ? 'var(--black-color)' : 'var(--gray-color)',
