@@ -5,7 +5,7 @@
   --black-trans-color: rgba(58, 58, 58, 0.5);
   --black-color: #3a3a3a;
   --black-alt-color: #272727;
-  --gray-color: #5e5e5e;
+  --gray-color: #575757;
   --green-trans-color: rgba(108, 184, 78, 0.5);
   --green-color: #6cb84e;
   --green-alt-color: #5eaa3f;
@@ -124,6 +124,10 @@ body {
 
 .Main input:focus {
   border-bottom-color: var(--black-color);
+}
+
+::placeholder {
+  color: var(--gray-color);
 }
 
 .Main .complete-msg {
