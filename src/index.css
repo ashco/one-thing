@@ -24,6 +24,11 @@ h2 {
   font-size: 1.4rem;
 }
 
+h3 {
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
 body {
   font-size: 10px;
   color: var(--black-color);
@@ -54,9 +59,44 @@ body {
 .Main {
   grid-area: Main;
   display: grid;
-  grid-template-rows: 10% 5% 1fr 10%;
+  grid-template-rows: 15% 1fr 10%;
   justify-items: center;
   align-items: center;
+}
+
+.Main--header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-row {
+  margin-bottom: 4px;
+}
+
+.primary {
+  font-weight: 400;
+}
+
+.date {
+  font-weight: 200;
+  font-size: 1.2rem;
+}
+
+.Main--header h1, .Main--header h2, .Main--header h3 {
+  display: inline;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 2s linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
 }
 
 .Main form {

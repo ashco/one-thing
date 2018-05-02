@@ -33,7 +33,7 @@ class History extends React.Component {
         {activeHistory &&
           <div className="History--main">
           {data.length === 0 || data.length === 1 && todayTodo && data[0].status === false
-            ? <p className="History-filler">You should make history</p>
+            ? <p className="History-filler">Go on, make history</p>
             : data.map((todo, index) => {
               return (
                 <Card

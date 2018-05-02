@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMain, streakCalc } from '../helpers/helpers';
+import { formatMain, streakCalc, centerHeader } from '../helpers/helpers';
 
 export function Date (props) {
   const { currentUnix } = props;
   const date = formatMain(currentUnix);
 
-  return <h2>{date}</h2>;
+  return <span className="date">{date}</span>;
 }
 
 Date.propTypes = {
@@ -105,7 +105,7 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  currentUnix: PropTypes.number.isRequired ,
+  currentUnix: PropTypes.number.isRequired,
   todayTodo: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool
@@ -119,17 +119,51 @@ class Main extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      streak: 0
+      streak: 0,
+      welcome: true,
+      showDate: false,
     }
   }
 
+  welcomeTimeout = () => {
+    setTimeout(() => {
+      this.setState({ welcome: false })
+      centerHeader();
+    }, 5000);
+  }
+
+  dateTimeout = () => {
+    setTimeout(() => {
+      this.setState({ showDate: true })
+      centerHeader();
+    }, 8000);
+  }
+
+  componentDidMount = () => {
+    centerHeader();
+    this.welcomeTimeout();
+    this.dateTimeout();
+  }
+
   render () {
+    const { welcome, showDate } = this.state;
     const { currentUnix, todayTodo, streak, handleStreak, onSubmit, onDelete, onComplete } = this.props;
 
     return (
       <div className="Main">
-        <h1>One Thing</h1>
-        <Date currentUnix={currentUnix} />
+        <div className="Main--header">
+          <div className="header-row">
+            <h2 className={`first ${welcome ? 'visible' : 'hidden'}`}>What is the </h2>
+            <h1 className="primary">One Thing</h1>
+            <h2 className={`last ${welcome ? 'visible' : 'hidden'}`}> you can do</h2>
+          </div>
+          <div className="header-row">
+            <h3 className={`first ${welcome ? 'visible' : 'hidden'}`}>to make </h3>
+            <h2 className={`primary ${showDate || welcome ? 'visible' : 'hidden'}`}>{showDate ? <Date /> : 'today'}</h2>
+            <h3 className={`last ${welcome ? 'visible' : 'hidden'}`}> a success?</h3>
+          </div>
+
+        </div>
         {todayTodo !== 'complete' &&
           <Form
             currentUnix={currentUnix}

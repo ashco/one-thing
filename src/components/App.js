@@ -11,7 +11,7 @@ class App extends Component {
       data: [
         {
           unix: 1525158224820,
-          text: 'Tooty Fruiti',
+          text: 'Read a book',
           status: true
         },{
           unix: 1525140679368,

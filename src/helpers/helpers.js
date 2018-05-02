@@ -6,16 +6,16 @@ export function getCurrentUnix () {
 }
 
 export function formatMain (unix) {
-  return moment(unix).format("dddd, MMM Do");
+  return moment(unix).format('dddd, MMM Do');
 }
 
 export function formatCard (unix) {
-  return moment(unix).format("l");
+  return moment(unix).format('l');
 }
 
 export function sameDateCheck (current, todo) {
   if (typeof todo === undefined) {
-    return false
+    return false;
   }
   const currentDate = formatCard(current);
   const todoDate = formatCard(todo);
@@ -40,7 +40,6 @@ export function streakCalc (data) {
   return i;
 }
 
-
 // Local Storage
 export function setLocalStorage () {
   return JSON.parse(localStorage.getItem('data')) || [];
@@ -50,7 +49,7 @@ export function updateLocalStorage (data) {
   localStorage.setItem('data', JSON.stringify(data));
 }
 
-// Font Size
+// Element Manipulation
 export function autoFontSize () {
   const cards = Array.from(document.querySelectorAll('.CardMain'));
 
@@ -85,4 +84,21 @@ export function autoFontSize () {
       }
     }
   });
+}
+
+
+export function centerHeader () {
+  const firstEls = document.querySelectorAll('.first');
+  const lastEls = document.querySelectorAll('.last');
+  const containerWidth = document.querySelector('.Main--header').offsetWidth;
+
+  for (let i = 0; i < firstEls.length; i++) {
+    const firstLen = firstEls[i].offsetWidth;
+    const lastLen = lastEls[i].offsetWidth;
+    const dif = firstLen - lastLen;
+
+    firstLen > lastLen
+      ? lastEls[i].style.marginRight = `${dif}px`
+      : firstEls[i].style.marginLeft = `${-dif}px`;
+  }
 }
