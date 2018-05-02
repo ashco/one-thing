@@ -72,9 +72,10 @@ class Form extends React.Component {
   }
 
   componentDidMount = () => {
-    const newPlaceholder = placeholderArr[Math.floor(Math.random() * placeholderArr.length)];
+    const randIndex = Math.floor(Math.random() * placeholderArr.length);
+    const newPlaceholder = placeholderArr[randIndex];
 
-    this.setState({ placeholder: newPlaceholder })
+    this.setState({ placeholder: newPlaceholder });
   }
 
   handleChange = (event) => {
