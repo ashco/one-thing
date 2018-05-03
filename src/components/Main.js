@@ -224,7 +224,7 @@ class Form extends React.Component {
             <button
               className='btn-large btn-set'
               type='submit'
-              style={{backgroundColor: !input ? 'var(--gray-color)' : ''}}
+              style={{display: !input ? 'none' : ''}}
               disabled={!input}>
               Set
             </button>

@@ -1,10 +1,17 @@
 import React from 'react';
-import { getWeatherData } from '../helpers/helpers';
+import { getWeather } from '../helpers/helpers';
 
 class WeatherCard extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      location: null
+    }
+  }
 
   componentDidMount = () => {
-    getWeatherData('98102');
+    const thing = getWeather('98102');
+    console.log(thing);
 
   }
 
