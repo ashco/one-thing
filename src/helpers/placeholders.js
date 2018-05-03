@@ -9,13 +9,14 @@ const placeholders = [
   'Change the world...',
   'Build a house...',
   'Get a job...',
-  'Destroy a dozen chickenwings...',
+  'Destroy a hamburger...',
+  'Eat a dozen chickenwings...',
   'Hangout with a friend...',
   'Ask for a raise...',
   'Run three miles...',
   'Buy groceries...',
   'Don\'t offend anyone...',
-  'Find my wallet...',
+  'Find your wallet...',
   'Survive the hangover...',
   'Apply to clown college...',
   'Become a dog walker...',
@@ -53,7 +54,9 @@ const placeholders = [
   'Do a handstand...',
   'Clap with one hand...',
   'Diffuse a bomb...',
-  'Build a human pyramid...'
+  'Build a human pyramid...',
+  'Make me a sandwich...',
+  'Make your bed...'
 
 ];
 
