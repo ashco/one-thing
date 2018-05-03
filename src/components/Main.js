@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMain, streakCalc, centerHeader } from '../helpers/helpers';
+import { formatMain, streakCalc, centerHeader, animateBtn } from '../helpers/helpers';
 import placeholderArr from '../helpers/placeholders';
 
 class MainHeader extends React.Component {
@@ -30,6 +30,12 @@ class MainHeader extends React.Component {
     centerHeader();
     this.welcomeTimeout();
     this.dateTimeout();
+  }
+
+  componentDidUpdate = () => {
+    const btns = document.querySelectorAll('.Main .btn-small');
+    btns.forEach(btn => btn.addEventListener('mouseenter', animateBtn));
+    btns.forEach(btn => btn.addEventListener('mouseout', animateBtn));
   }
 
   render () {
@@ -133,17 +139,18 @@ class Form extends React.Component {
           onChange={this.handleChange}
           disabled={todayTodo !== false}
         />
-        <div className='btn-container'>
         {todayTodo === false &&
-          <button
-            className='btn-large btn-set'
-            type='submit'
-            style={{backgroundColor: !input ? 'var(--gray-color)' : ''}}
-            disabled={!input}>
-            Set
-          </button>}
+          <div className='btn-container'>
+            <button
+              className='btn-large btn-set'
+              type='submit'
+              style={{backgroundColor: !input ? 'var(--gray-color)' : ''}}
+              disabled={!input}>
+              Set
+            </button>
+          </div>}
         {todayTodo === 'incomplete' &&
-          <div>
+          <div className='btn-container'>
             <button
               className='btn-small btn-x'
               onClick={this.handleReset}>
@@ -155,7 +162,6 @@ class Form extends React.Component {
               ✓
             </button>
           </div>}
-        </div>
       </form>
     )
   }
@@ -196,7 +202,7 @@ class Main extends React.Component {
             onComplete={onComplete} />}
         {todayTodo === 'complete' &&
           <div className='complete-msg'>
-            <p>Great job! {streak > 1 ? `${streak} days in a row!` : 'Great job! See you tomorrow.'}</p>
+            <p>Great job! {streak > 1 ? `${streak} days in a row!` : 'See you tomorrow.'}</p>
           </div>}
           <div>
             <h2 className='quote'>Motivational quote here...</h2>

@@ -50,7 +50,10 @@ const placeholders = [
   'Practice the ukulele...',
   'Volunteer...',
   'Dontate to charity...',
-
+  'Do a handstand...',
+  'Clap with one hand...',
+  'Diffuse a bomb...',
+  'Build a human pyramid'
 
 ];
 

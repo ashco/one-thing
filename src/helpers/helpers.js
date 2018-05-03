@@ -102,3 +102,30 @@ export function centerHeader () {
       : firstEls[i].style.marginLeft = `${-dif}px`;
   }
 }
+
+export function animateBtn () {
+  const btnX = document.querySelector('.Main .btn-x');
+  const btnChk = document.querySelector('.Main .btn-chk');
+  const widthBtnX = btnX.offsetWidth;
+  const widthBtnChk = btnChk.offsetWidth;
+  const dif = widthBtnX - widthBtnChk;
+
+  if (widthBtnX > widthBtnChk) {
+    btnChk.style.marginRight = `${dif}px`;
+    btnX.style.marginLeft = '0px';
+    btnChk.innerHTML = '✓';
+    btnX.innerHTML = '<span class="Main-btn__hover">Delete?</span>✕';
+  }
+  else if (widthBtnX < widthBtnChk) {
+    btnChk.style.marginRight = '0px';
+    btnX.style.marginLeft = `${-dif}px`;
+    btnChk.innerHTML = '✓<span class="Main-btn__hover">Complete!</span>';
+    btnX.innerHTML = '✕';
+  }
+  else {
+    btnChk.style.marginRight = '0px';
+    btnX.style.marginLeft = '0px';
+    btnChk.innerHTML = '✓';
+    btnX.innerHTML = '✕';
+  }
+}
