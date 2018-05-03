@@ -114,12 +114,14 @@ export function animateBtn () {
     btnChk.style.marginRight = `${dif}px`;
     btnX.style.marginLeft = '0px';
     btnChk.innerHTML = '✓';
-    btnX.innerHTML = '<span class="Main-btn__hover">Delete?</span>✕';
+    // btnX.innerHTML = '<span class="Main-btn__hover">Delete?</span><span>✕</span>';
+    btnX.innerHTML = 'Delete?  ✕';
   }
   else if (widthBtnX < widthBtnChk) {
     btnChk.style.marginRight = '0px';
     btnX.style.marginLeft = `${-dif}px`;
-    btnChk.innerHTML = '✓<span class="Main-btn__hover">Complete!</span>';
+    btnChk.innerHTML = '✓  Complete!';
+    // btnChk.innerHTML = '✓<span class="Main-btn__hover">Complete!</span>';
     btnX.innerHTML = '✕';
   }
   else {

@@ -78,6 +78,10 @@ class Form extends React.Component {
   }
 
   componentDidMount = () => {
+    this.handlePlaceholder();
+  }
+
+  handlePlaceholder = () => {
     const randIndex = Math.floor(Math.random() * placeholderArr.length);
     const newPlaceholder = placeholderArr[randIndex];
 
@@ -106,6 +110,7 @@ class Form extends React.Component {
     event.preventDefault();
     const { onDelete, handleStreak } = this.props;
 
+    this.handlePlaceholder();
     this.setState(() => ({ input: '' }));
 
     onDelete(0);

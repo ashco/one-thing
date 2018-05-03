@@ -171,7 +171,7 @@ form .btn-container {
 
 .Main .btn-x:hover {
   background-color: var(--red-color);
-  width: 100px;
+  width: 180px;
 }
 
 .Main .btn-chk {
@@ -185,7 +185,7 @@ form .btn-container {
 
 .Main .btn-chk:hover {
   background-color: var(--green-alt-color);
-  width: 120px;
+  width: 180px;
 }
 
 .Main-btn__hover {
