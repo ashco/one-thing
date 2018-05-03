@@ -119,8 +119,6 @@ class Form extends React.Component {
     const { input, placeholder } = this.state;
     const { todayTodo } = this.props;
 
-    console.log(placeholder);
-
     return (
       <form className='column' onSubmit={this.handleSubmit}>
         <input

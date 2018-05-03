@@ -23,7 +23,7 @@ class App extends Component {
           status: false
         },{
           unix: 1524908079368,
-          text: 'Build a house',
+          text: 'Uncover the inner psyche of the human mind',
           status: true
         },{
           unix: 1524440679368,
