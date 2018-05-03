@@ -1,6 +1,4 @@
 * {
-  --main-color: #f1f1f1;
-  --secondary-color: #ebebeb;
   --card-text-color: rgba(240, 240, 240, 0.85);
   --black-trans-color: rgba(58, 58, 58, 0.5);
   --black-color: #3a3a3a;
@@ -10,9 +8,11 @@
   --green-trans-color: rgba(108, 184, 78, 0.5);
   --green-color: #6cb84e;
   --green-alt-color: #5eaa3f;
+  --green-dark-color: #437c2d;
   --red-trans-color: rgba(247, 89, 84, 0.5);
   --red-color: #f75954;
   --red-alt-color: #e23e39;
+  --red-dark-color: #ac2d29;
 }
 
 h1 {
@@ -178,7 +178,7 @@ form .btn-container {
   background-color: var(--red-color);
 }
 
-.btn-chk {
+.Main .btn-chk {
   background-color: var(--green-color);
 }
 
@@ -186,9 +186,9 @@ form .btn-container {
   background-color: var(--green-alt-color);
 }
 
-.btn-small:active {
+/* .btn-small:active {
   background-color: purple;
-}
+} */
 
 .quote {
   font-style: italic;
@@ -263,7 +263,7 @@ form .btn-container {
   margin: .5rem;
 }
 
-.CardHover {
+/* .CardHover {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -291,6 +291,76 @@ form .btn-container {
   height: 2.8rem;
   width: 2.8rem;
   font-size: 1rem;
+} */
+
+
+.CardHover {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+	height: 100%;
+  width: 100%;
+  bottom: -100%;
+  left: 0;
+  transition: bottom 0.3s ease;
+
+
+
+  color: var(--card-text-color);
+  background-color: var(--black-color);
+}
+
+.CardHover--complete {
+  background-color: var(--green-color);
+}
+
+.CardHover--complete .btn-chk {
+  background-color: var(--green-alt-color);
+}
+
+.CardHover--complete .btn-x {
+  background-color: var(--green-color);
+}
+
+.CardHover--complete .btn-x:active {
+  background-color: purple;
+}
+
+.CardHover--delete {
+  background-color: var(--red-color);
+}
+.CardHover--delete .btn-chk {
+  background-color: var(--red-color);
+}
+.CardHover--delete .btn-x {
+  background-color: var(--red-alt-color);
+}
+
+.btn-chk:active {
+  background-color: var(--green-dark-color);
+}
+
+.btn-x:active {
+  background-color: var(--red-dark-color);
+}
+
+
+.CardHover > * {
+  margin: 0 1rem;
+}
+
+.CardHover h2 {
+  font-size: 1.5rem;
+  color: var(--card-text-color);
+}
+
+.CardHover button {
+  border: none;
+  height: 2.8rem;
+  width: 2.8rem;
+  font-size: 1rem;
+  background-color: var(--black-alt-color);
 }
 
 .Card:hover .CardHover {
