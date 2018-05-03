@@ -53,7 +53,7 @@ const placeholders = [
   'Do a handstand...',
   'Clap with one hand...',
   'Diffuse a bomb...',
-  'Build a human pyramid'
+  'Build a human pyramid...'
 
 ];
 

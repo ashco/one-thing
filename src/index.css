@@ -169,9 +169,8 @@ form .btn-container {
   background-color: var(--black-alt-color);
 }
 
-.Main .btn-x:hover {
+.Main .btn-del:hover {
   background-color: var(--red-color);
-  width: 180px;
 }
 
 .Main .btn-chk {
@@ -179,34 +178,27 @@ form .btn-container {
   transition: opacity 2s linear;
 }
 
-/* .Main .btn-chk {
-  transition: bottom 0.3s ease;
-} */
 
 .Main .btn-chk:hover {
   background-color: var(--green-alt-color);
-  width: 180px;
+  /* width: 120px; */
 }
 
 .Main-btn__hover {
   font-size: 0.8rem;
-  margin: 0 10px;
 }
-
-/* .Main button span {
-  display: block;
-} */
 
 .Main button {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 0 14px;
 }
 
 
 
-.quote {
+.weather {
   font-style: italic;
   font-weight: 200;
 }
@@ -298,7 +290,7 @@ form .btn-container {
   background-color: var(--green-alt-color);
 }
 
-.CardHover--complete .btn-x {
+.CardHover--complete .btn-del {
   background-color: var(--green-color);
 }
 
@@ -308,7 +300,7 @@ form .btn-container {
 .CardHover--delete .btn-chk {
   background-color: var(--red-color);
 }
-.CardHover--delete .btn-x {
+.CardHover--delete .btn-del {
   background-color: var(--red-alt-color);
 }
 
@@ -316,7 +308,7 @@ form .btn-container {
   background-color: var(--green-dark-color);
 }
 
-.Main .btn-x:active, .Cardhover .btn-x:active {
+.Main .btn-del:active, .Cardhover .btn-del:active {
   background-color: var(--red-dark-color);
 }
 

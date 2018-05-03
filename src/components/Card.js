@@ -27,7 +27,7 @@ function CardHoverComplete (props) {
       <h2>{!deleteBtnHover ? 'Complete!' : 'Delete?'}</h2>
       <div className="CardHover--btn-container">
         <button
-          className={`btn-small ${!deleteBtnHover ? 'btn-chk' : 'btn-x'}`}
+          className={`btn-small ${!deleteBtnHover ? 'btn-chk' : 'btn-del'}`}
           onMouseEnter={handleDeleteBtnHover}
           onMouseLeave={handleDeleteBtnHover}
           onClick={handleDelete}>
@@ -75,7 +75,7 @@ function CardHoverIncomplete (props) {
           ✓
         </button>
         <button
-          className='btn-small btn-x'
+          className='btn-small btn-del'
           onMouseEnter={handleDeleteBtnHover}
           onMouseLeave={handleDeleteBtnHover}
           onClick={handleDelete}>
