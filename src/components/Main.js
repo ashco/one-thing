@@ -1,7 +1,7 @@
 import React from 'react';
 import Weather from './Weather';
 import PropTypes from 'prop-types';
-import { formatMain, streakCalc, centerHeader, animateBtn } from '../helpers/helpers';
+import { formatMain, centerHeader } from '../helpers/helpers';
 import placeholderArr from '../helpers/placeholders';
 
 class MainHeader extends React.Component {
@@ -124,7 +124,7 @@ class Form extends React.Component {
 
   handleReset = (event) => {
     event.preventDefault();
-    const { onDelete, handleStreak } = this.props;
+    const { onDelete } = this.props;
 
     this.handlePlaceholder();
     this.setState(() => ({ input: '' }));
@@ -143,7 +143,7 @@ class Form extends React.Component {
   }
 
   render () {
-    const { input, placeholder, hover } = this.state;
+    const { input, placeholder } = this.state;
     const { todayTodo } = this.props;
 
     return (

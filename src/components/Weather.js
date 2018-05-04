@@ -1,5 +1,5 @@
 import React from 'react';
-import { getWeatherData, getWeather, capitalizer } from '../helpers/helpers';
+import { getWeather, capitalizer } from '../helpers/helpers';
 import svg01d from '../images/weather-icons/01d.svg';
 import svg01n from '../images/weather-icons/01n.svg';
 import svg02d from '../images/weather-icons/02d.svg';
@@ -37,6 +37,10 @@ class Weather extends React.Component {
         console.log(data);
         this.setState({ weatherObj: data });
         this.createImg(data.icon);
+      })
+      .catch(error => {
+        console.log(error);
+        return;
       });
   }
 

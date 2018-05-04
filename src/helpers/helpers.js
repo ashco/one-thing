@@ -1,9 +1,9 @@
 import moment from 'moment';
 import axios from 'axios';
+require('dotenv').config();
 
-// http://api.openweathermap.org/data/2.5/forecast?q=Seattle,Washington&APPID=d706246e45952ae604390e0e530c6603
 const urlStart = 'http://api.openweathermap.org/data/2.5/weather?q=';
-const apiKey = 'd706246e45952ae604390e0e530c6603';
+const apiKey = process.env.API_KEY;
 
 // TIME
 export function getCurrentUnix () {
@@ -95,7 +95,6 @@ export function autoFontSize () {
 export function centerHeader () {
   const firstEls = document.querySelectorAll('.first');
   const lastEls = document.querySelectorAll('.last');
-  const containerWidth = document.querySelector('.Main--header').offsetWidth;
 
   for (let i = 0; i < firstEls.length; i++) {
     const firstLen = firstEls[i].offsetWidth;
@@ -108,42 +107,13 @@ export function centerHeader () {
   }
 }
 
-// export function animateBtn () {
-//   const btnX = document.querySelector('.Main .btn-del');
-//   const btnChk = document.querySelector('.Main .btn-chk');
-//   const widthBtnX = btnX.offsetWidth;
-//   const widthBtnChk = btnChk.offsetWidth;
-//   const dif = widthBtnX - widthBtnChk;
-
-//   if (widthBtnX > widthBtnChk) {
-//     btnChk.style.marginRight = `${dif}px`;
-//     btnX.style.marginLeft = '0px';
-//     btnChk.innerHTML = '✓';
-//     btnX.innerHTML = '<span class="Main-btn__hover">Delete?</span><span>✕</span>';
-//     // btnX.innerHTML = 'Delete?  ✕';
-//   }
-//   else if (widthBtnX < widthBtnChk) {
-//     btnChk.style.marginRight = '0px';
-//     btnX.style.marginLeft = `${-dif}px`;
-//     // btnChk.innerHTML = '✓  Complete!';
-//     btnChk.innerHTML = '<span>✓</span><span class="Main-btn__hover">Complete!</span>';
-//     btnX.innerHTML = '✕';
-//   }
-//   else {
-//     btnChk.style.marginRight = '0px';
-//     btnX.style.marginLeft = '0px';
-//     btnChk.innerHTML = '✓';
-//     btnX.innerHTML = '✕';
-//   }
-// }
-
 export function getWeatherData (location) {
   return axios.get(urlStart + location + '&APPID=' + apiKey)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
-      console.log('ERROR BRO: ' + error);
+      console.log('ERROR: ' + error);
       return null;
   });
 }
