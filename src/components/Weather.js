@@ -34,7 +34,6 @@ class Weather extends React.Component {
     const { location } = this.state;
     getWeather(location)
       .then(data => {
-        console.log(data);
         this.setState({ weatherObj: data });
         this.createImg(data.icon);
       })
