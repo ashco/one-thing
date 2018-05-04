@@ -56,7 +56,10 @@ const placeholders = [
   'Diffuse a bomb...',
   'Build a human pyramid...',
   'Make me a sandwich...',
-  'Make your bed...'
+  'Make your bed...',
+  'Clip toenails...',
+  'Don\'t embarass yourself...',
+
 
 ];
 

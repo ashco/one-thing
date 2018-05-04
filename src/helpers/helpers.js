@@ -149,20 +149,23 @@ export function getWeatherData (location) {
 }
 
 function formatWeatherData (data) {
-  return {
+  return !data ? null : {
     icon: data.weather[0].icon,
+    main: data.weather[0].main,
     description: data.weather[0].description,
     temp: data.main.temp,
     name: data.name,
   };
 }
 
-
-
 export function getWeather (location) {
   return getWeatherData(location)
-    .then(data => {
-      const weatherObj = formatWeatherData(data);
-      return weatherObj;
-    })
+    .then(data => formatWeatherData(data));
+}
+
+export function capitalizer (string) {
+  return string
+    .split(' ')
+    .map(word => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 }

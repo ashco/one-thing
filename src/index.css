@@ -233,9 +233,13 @@ h2.Weather--description {
   margin: 8px 0 6px 0;
 }
 
-.Weather--container .city{
+.Weather--container .location{
   font-size: 0.75rem;
   margin: 0;
+}
+
+.Weather--container .location--hover{
+  text-decoration: underline;
 }
 
 .Weather .temp {
