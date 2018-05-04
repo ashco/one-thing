@@ -2,7 +2,7 @@ import moment from 'moment';
 import axios from 'axios';
 require('dotenv').config();
 
-const urlStart = 'http://api.openweathermap.org/data/2.5/weather?q=';
+const urlStart = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const apiKey = process.env.API_KEY;
 
 // TIME
