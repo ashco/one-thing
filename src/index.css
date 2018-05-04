@@ -4,7 +4,7 @@
   --black-color: #3a3a3a;
   --black-alt-color: #292929;
   --black-dark-color: #222222;
-  --lightgray-color: rgba(82, 82, 82, 0.75);
+  --lightgray-color: rgba(82, 82, 82, 0.5);
   --gray-color: #525252;
   --green-trans-color: rgba(108, 184, 78, 0.5);
   --green-color: #6cb84e;
@@ -61,7 +61,7 @@ background-position: center;
 .Main {
   grid-area: Main;
   display: grid;
-  grid-template-rows: 15% 1fr 10%;
+  grid-template-rows: 15% 1fr 13%;
   justify-items: center;
   align-items: center;
 }
@@ -204,21 +204,49 @@ form .btn-container {
 
 
 
-.quote--container {
+.Weather {
+  color: var(--lightgray-color);
+}
+
+.Weather--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   font-style: italic;
 }
 
-.quote {
-  margin: 12px 0;
-  font-weight: 200;
+.Weather--container > * {
+  margin: 6px;
 }
 
-.quote--author {
-  font-weight: 100;
-  font-size: 0.8rem;
-  /* margin: 12px 0 60px 12px; */
+.Weather--textbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
+
+h2.Weather--description {
+  color: rgba(82, 82, 82, 0.75);
+  font-size: 1rem;
+  font-weight: 100;
+  margin: 8px 0 6px 0;
+}
+
+.Weather--container .city{
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.Weather .temp {
+  font-size: 32px;
+  font-weight: 300;
+}
+
+
+
+
+
 
 /* HISTORY */
 .History {

@@ -1,5 +1,5 @@
 import React from 'react';
-import QuoteCard from './QuoteCard';
+import Weather from './Weather';
 import PropTypes from 'prop-types';
 import { formatMain, streakCalc, centerHeader, animateBtn } from '../helpers/helpers';
 import placeholderArr from '../helpers/placeholders';
@@ -286,7 +286,7 @@ class Main extends React.Component {
           <div className='complete-msg'>
             <p>Great job! {streak > 1 ? `${streak} days in a row!` : 'See you tomorrow.'}</p>
           </div>}
-          <QuoteCard />
+          <Weather />
           {/* <div>
             <h2 className='quote'>Motivational quote here...</h2>
           </div> */}

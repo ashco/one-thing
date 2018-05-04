@@ -137,32 +137,32 @@ export function centerHeader () {
 //   }
 // }
 
-// function getWeatherData (location) {
-//   return axios.get(urlStart + location + '&APPID=' + apiKey)
-//     .then((response) => {
-//       return response.data
-//     })
-//     .catch((error) => {
-//       console.log('ERROR: ' + error);
-//       return null;
-//     });
-// }
+export function getWeatherData (location) {
+  return axios.get(urlStart + location + '&APPID=' + apiKey)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('ERROR BRO: ' + error);
+      return null;
+  });
+}
 
-// function parseWeatherData (data) {
-//   const weatherObj = {
-//     icon: data.weather[0].icon,
-//     description: data.weather[0].description,
-//     temp: data.main.temp,
-//     name: data.name,
-//   };
-//   return weatherObj;
-// }
+function formatWeatherData (data) {
+  return {
+    icon: data.weather[0].icon,
+    description: data.weather[0].description,
+    temp: data.main.temp,
+    name: data.name,
+  };
+}
 
-// export function getWeather (location) {
-//   // const data = getWeatherData(location);
-//   getWeatherData(location).then(data => {
-//     // console.log(data);
-//     // return parseWeatherData(data);
-//     return data;
-//   })
-// }
+
+
+export function getWeather (location) {
+  return getWeatherData(location)
+    .then(data => {
+      const weatherObj = formatWeatherData(data);
+      return weatherObj;
+    })
+}

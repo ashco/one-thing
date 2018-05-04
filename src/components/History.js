@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import PropTypes from 'prop-types';
-import menu from '../menu_icon.svg';
+import menu from '../images/menu_icon.svg';
 import { autoFontSize } from '../helpers/helpers';
 
 class History extends React.Component {
