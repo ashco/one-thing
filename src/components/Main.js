@@ -64,63 +64,23 @@ function Date (props) {
 }
 
 
-class BtnChoice extends React.Component {
-  // constructor (props) {
-  //   super(props);
-  //   this.state = {
-  //     chkHover: false,
-  //     delHover: false,
-  //   }
-  // }
+function BtnChoice (props) {
+  const { onReset, onComplete } = props;
 
-  // componentDidMount = () => {
-  //   const btnChk = document.querySelector('.Main .btn-chk');
-  //   const btnDel = document.querySelector('.Main .btn-del');
-  //   btnChk.addEventListener('mouseenter', this.handleChkHover);
-  //   btnChk.addEventListener('mouseout', this.handleChkHover);
-  //   btnDel.addEventListener('mouseenter', this.handleDelHover);
-  //   btnDel.addEventListener('mouseout', this.handleDelHover);
-  // }
-
-  // componentWillUnmount = () => {
-  //   const btnChk = document.querySelector('.Main .btn-chk');
-  //   const btnDel = document.querySelector('.Main .btn-del');
-  //   btnChk.removeEventListener('mouseenter', this.handleChkHover);
-  //   btnChk.removeEventListener('mouseout', this.handleChkHover);
-  //   btnDel.removeEventListener('mouseenter', this.handleDelHover);
-  //   btnDel.removeEventListener('mouseout', this.handleDelHover);
-  // }
-
-  // handleChkHover = () => {
-  //   this.setState({ chkHover: !this.state.chkHover });
-  //   console.log(this.state.chkHover);
-  // }
-
-  // handleDelHover = () => {
-  //   this.setState({ delHover: !this.state.delHover });
-  //   console.log(this.state.delHover);
-  // }
-
-  render () {
-    // const { chkHover, delHover } = this.state;
-    const { onReset, onComplete } = this.props;
-
-    return (
-      <div className='btn-container'>
-        <button
-          className='btn-small btn-del'
-          onClick={onReset}>
-          ✕
-          {/* <span>✕</span>{delHover ? <span>Delete?</span> : ''} */}
-        </button>
-        <button
-          className='btn-small btn-chk'
-          onClick={onComplete}>
-          ✓
-        </button>
-      </div>
-    )
-  }
+  return (
+    <div className='btn-container'>
+      <button
+        className='btn-small btn-del'
+        onClick={onReset}>
+        ✕
+      </button>
+      <button
+        className='btn-small btn-chk'
+        onClick={onComplete}>
+        ✓
+      </button>
+    </div>
+  )
 }
 
 
@@ -130,8 +90,6 @@ class Form extends React.Component {
     this.state = {
       placeholder: 'What will you to accomplish today?',
       input: '',
-      // chkhover: false,
-      // delhover: false,
     }
   }
 
@@ -139,27 +97,12 @@ class Form extends React.Component {
     this.handlePlaceholder();
   }
 
-  // componentDidUpdate = () => {
-  //   const btnChk = document.querySelector('.Main .btn-chk');
-  //   const btnDel = document.querySelector('.Main .btn-del');
-  //   console.log(
-  //     btnChk,
-  //     btnDel
-  //   );
-  //   // btnChk.addEventListener('mouseenter', this.handleChkHover);
-  //   // btnChk.addEventListener('mouseout', this.handleChkHover);
-  //   // btnDel.addEventListener('mouseenter', this.handleDelHover);
-  //   // btnDel.addEventListener('mouseout', this.handleDelHover);
-  // }
-
   handlePlaceholder = () => {
     const randIndex = Math.floor(Math.random() * placeholderArr.length);
     const newPlaceholder = placeholderArr[randIndex];
 
     this.setState({ placeholder: newPlaceholder });
   }
-
-
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -199,8 +142,6 @@ class Form extends React.Component {
     handleStreak();
   }
 
-
-
   render () {
     const { input, placeholder, hover } = this.state;
     const { todayTodo } = this.props;
@@ -231,18 +172,6 @@ class Form extends React.Component {
           </div>}
         {todayTodo === 'incomplete' &&
           <BtnChoice onReset={this.handleReset} onComplete={this.handleComplete} />
-          // <div className='btn-container'>
-          //   <button
-          //     className='btn-small btn-del'
-          //     onClick={this.handleReset}>
-          //     ✕
-          //   </button>
-          //   <button
-          //     className='btn-small btn-chk'
-          //     onClick={this.handleComplete}>
-          //     ✓
-          //   </button>
-          // </div>
         }
       </form>
     )
@@ -287,9 +216,6 @@ class Main extends React.Component {
             <p>Great job! {streak > 1 ? `${streak} days in a row!` : 'See you tomorrow.'}</p>
           </div>}
           <Weather />
-          {/* <div>
-            <h2 className='quote'>Motivational quote here...</h2>
-          </div> */}
       </div>
     )
   }

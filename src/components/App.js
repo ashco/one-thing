@@ -8,36 +8,12 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      data: [
-        {
-          unix: 1525158224820,
-          text: 'Read a book',
-          status: true
-        },{
-          unix: 1525140679368,
-          text: 'Eat double chicken wings',
-          status: true
-        },{
-          unix: 1525018079368,
-          text: 'Get a job',
-          status: false
-        },{
-          unix: 1524908079368,
-          text: 'Uncover the inner psyche of the human mind',
-          status: true
-        },{
-          unix: 1524440679368,
-          text: 'Follow the dreams of your childhood. Be merry, and eat lots of playdough',
-          status: false
-        }
-      ],
+      data: [],
       streak: 0,
       activeMain: true,
       activeHistory: true,
     }
   }
-
-
 
   windowActivator = () => {
     if (window.innerWidth > 768) {
@@ -68,7 +44,7 @@ class App extends Component {
         status
       }, ...this.state.data]
     }));
-    // updateLocalStorage(this.state.data);
+    updateLocalStorage(this.state.data);
   }
 
   handleDelete = (index) => {
@@ -77,7 +53,7 @@ class App extends Component {
 
     this.setState(() => ({ data: newState }));
 
-    // updateLocalStorage(this.state.data);
+    updateLocalStorage(this.state.data);
   }
 
   handleComplete = (index) => {
@@ -86,7 +62,7 @@ class App extends Component {
 
     this.setState(() => ({ data: newState }))
 
-    // updateLocalStorage(this.state.data);
+    updateLocalStorage(this.state.data);
   }
 
   handleStreak = () => {
@@ -97,8 +73,8 @@ class App extends Component {
   }
 
   componentDidMount () {
-    // let data = setLocalStorage();
-    // this.setState({ data: data })
+    let data = setLocalStorage();
+    this.setState({ data: data })
 
     this.windowActivator();
     this.handleStreak();

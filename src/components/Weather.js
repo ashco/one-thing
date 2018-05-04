@@ -27,30 +27,7 @@ class Weather extends React.Component {
       weatherObj: null,
       img: null,
       svgArr: [svg01d, svg01n, svg02d, svg02n, svg03d, svg03n, svg04d, svg04n, svg09d, svg09n, svg10d, svg10n, svg11d, svg11n, svg13d, svg13n, svg50d, svg50n],
-      hover: false,
-      input: '',
     }
-  }
-
-  setLocation = () => {
-    console.log(this.state);
-    this.setState({ location: this.state.value });
-    this.handleWeather();
-    console.log('trigger:' , this.state);
-  }
-
-  clearLocation = () => {
-    this.setState({
-      location: null,
-      weatherObj: null,
-      img: null,
-      hover: true,
-    })
-  }
-
-  handleHover = () => {
-    this.setState({ hover: !this.state.hover });
-    console.log(this.state.hover);
   }
 
   handleWeather = () => {
@@ -63,16 +40,6 @@ class Weather extends React.Component {
       });
   }
 
-  handleChange = (event) => {
-    const value = event.target.value;
-
-    if (value.length >= 40) {
-      console.log('Character Limit Reached');
-      return;
-    }
-    this.setState(() => ({ input: value }));
-  }
-
   createImg (icon) {
     const { svgArr } = this.state;
     const index = svgArr.findIndex(img => img.includes(icon));
@@ -82,34 +49,15 @@ class Weather extends React.Component {
   }
 
   componentDidMount () {
-    const weatherBox = document.querySelector('.Weather--container');
-    weatherBox.addEventListener('mouseenter', this.handleHover);
-    weatherBox.addEventListener('mouseleave', this.handleHover);
     this.handleWeather();
   }
 
   render () {
-    const { location, weatherObj, img, hover, input } = this.state;
+    const { location, weatherObj, img } = this.state;
 
     return (
       <div className='Weather'>
-
-        <div className='Weather--container'>
-          {weatherObj && <img src={img} alt={weatherObj.main}/>}
-          <div className='Weather--textbox'>
-            <input
-              type="text"
-              id="location"
-              value={input}
-              onChange={this.handleChange}
-              />
-            {input
-              ? <h3 className='location location--hover'><a onClick={this.setLocation}>Set</a></h3>
-              : <h3 className='location location--hover'><a onClick={this.clearLocation}>Clear</a></h3>}
-          </div>
-          {/* <p className="temp">{Math.floor(weatherObj.temp * 1.8 - 459.67)}&#176;</p> */}
-        </div>
-      {/* {!weatherObj
+      {!weatherObj
         ? <div className='Weather--container'>
             <h2 className='loading'>Loading</h2>
           </div>
@@ -117,13 +65,10 @@ class Weather extends React.Component {
             <img src={img} alt={weatherObj.main}/>
             <div className='Weather--textbox'>
               <h2 className='Weather--description'>{capitalizer(weatherObj.description)}</h2>
-              {hover || !weatherObj
-                ? <h3 className='location location--hover'><a onClick={this.removeLocation}>Change</a></h3>
-                : <h3 className='location'>- {location} -</h3>}
+              <h3 className='location'>- {location} -</h3>
             </div>
             <p className="temp">{Math.floor(weatherObj.temp * 1.8 - 459.67)}&#176;</p>
-          </div>
-      } */}
+          </div>}
       </div>
     );
   }

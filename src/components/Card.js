@@ -38,7 +38,6 @@ function CardHoverComplete (props) {
   )
 }
 
-
 CardHoverComplete.propTypes = {
   deleteBtnHover: PropTypes.bool.isRequired,
   handleDeleteBtnHover: PropTypes.func.isRequired,
@@ -85,53 +84,6 @@ function CardHoverIncomplete (props) {
     </div>
   )
 }
-//   const btn = {
-//     title: 'Busy?',
-//     backgroundColor: 'var(--black-color)',
-//     completeColor: 'var(--black-alt-color)',
-//     deleteColor: 'var(--black-alt-color)',
-//     cardStyle: ''
-//   }
-
-//   if (completeBtnHover) {
-//     btn.title = 'Complete!';
-//     btn.backgroundColor = 'var(--green-color)';
-//     btn.completeColor = 'var(--green-alt-color)';
-//     btn.deleteColor = 'var(--green-color)';
-//   }
-//   else if (deleteBtnHover) {
-//     btn.title = 'Delete?';
-//     btn.backgroundColor = 'var(--red-color)';
-//     btn.completeColor = 'var(--red-color)';
-//     btn.deleteColor = 'var(--red-alt-color)';
-//   }
-
-//   return (
-//     <div className={`CardHover ${btn.cardStyle}`} style={{backgroundColor: btn.backgroundColor}}>
-//       <h2>{btn.title}</h2>
-//       <div className="CardHover--btn-container">
-//         <button
-//           onMouseEnter={handleCompleteBtnHover}
-//           onMouseLeave={handleCompleteBtnHover}
-//           className='btn-small'
-//           style={{backgroundColor: btn.completeColor}}
-//           onClick={handleComplete}
-//           >
-//             ✓
-//         </button>
-//         <button
-//           onMouseEnter={handleDeleteBtnHover}
-//           onMouseLeave={handleDeleteBtnHover}
-//           className='btn-small'
-//           style={{backgroundColor: btn.deleteColor}}
-//           onClick={handleDelete}
-//           >
-//             ✕
-//         </button>
-//       </div>
-//     </div>
-//   )
-// }
 
 
 CardHoverIncomplete.propTypes = {
