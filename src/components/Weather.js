@@ -48,15 +48,13 @@ class WeatherInput extends React.Component {
 
   render() {
     return (
-      <div>
-        <form className='column' onSubmit={this.handleSubmit}>
-          <input
-            className='Weather--input'
-            type="text"
-            onChange={this.handleChange}/>
-          <button className='Weather--input__btn' type='submit'>Set Location</button>
-        </form>
-      </div>
+      <form className='column' onSubmit={this.handleSubmit}>
+        <input
+          className='Weather--input'
+          type="text"
+          onChange={this.handleChange}/>
+        <button className='Weather--input__btn' type='submit'>- Set Location -</button>
+      </form>
     );
   }
 }
@@ -70,7 +68,16 @@ class Weather extends React.Component {
       weatherObj: null,
       img: null,
       svgArr: [svg01d, svg01n, svg02d, svg02n, svg03d, svg03n, svg04d, svg04n, svg09d, svg09n, svg10d, svg10n, svg11d, svg11n, svg13d, svg13n, svg50d, svg50n],
+      hover: false,
     }
+  }
+
+  removeLocation = () => {
+    this.setState({
+      location: '',
+      weatherObj: null,
+      img: null,
+    });
   }
 
   handleLocation = (location) => {
@@ -93,6 +100,10 @@ class Weather extends React.Component {
     }
   }
 
+  addHover = () => this.setState({ hover: true });
+
+  removeHover = () => this.setState({ hover: false });
+
   createImg = (icon) => {
     const { svgArr } = this.state;
     const index = svgArr.findIndex(img => img.includes(icon));
@@ -103,10 +114,20 @@ class Weather extends React.Component {
 
   componentDidMount = () => {
     this.handleWeather();
+    document.querySelector('.Weather').addEventListener('pointerover', this.addHover);
+    document.querySelector('.Weather').addEventListener('pointerout', this.removeHover);
+    document.querySelector('.Weather').addEventListener('click', this.removeLocation);
+  }
+
+  componentWillUnmount = () => {
+    this.handleWeather();
+    document.querySelector('.Weather').removeEventListener('pointerover', this.addHover);
+    document.querySelector('.Weather').removeEventListener('pointerout', this.removeHover);
+    document.querySelector('.Weather').removeEventListener('click', this.removeLocation);
   }
 
   render () {
-    const { location, weatherObj, img } = this.state;
+    const { location, weatherObj, img, hover } = this.state;
 
     return (
       <div className='Weather'>
@@ -119,7 +140,9 @@ class Weather extends React.Component {
             <img src={img} alt={weatherObj.main}/>
             <div className='Weather--textbox'>
               <h2 className='Weather--description'>{capitalizer(weatherObj.description)}</h2>
-              <h3 className='location'>- {location} -</h3>
+              {hover
+                ? <h3 className='location'>- Remove? -</h3>
+                : <h3 className='location'>- {capitalizer(location)} -</h3>}
             </div>
             <p className="temp">{Math.floor(weatherObj.temp * 1.8 - 459.67)}&#176;</p>
           </div>}

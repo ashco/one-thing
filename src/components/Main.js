@@ -149,6 +149,7 @@ class Form extends React.Component {
     return (
       <form className='column' onSubmit={this.handleSubmit}>
         <input
+          className='Main--input'
           type='text'
           id='input'
           placeholder={placeholder}

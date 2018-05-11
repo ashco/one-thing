@@ -109,14 +109,14 @@ background-position: center;
 
 }
 
-.Main input, .Main .complete-msg {
+.Main--input, .Main .complete-msg {
   font-size: 2rem;
   height: 70px;
   color: var(--gray-color);
   border: none;
 }
 
-.Main input {
+.Main--input {
   border-bottom: 2px solid var(--gray-color);
   resize: none;
   text-align: center;
@@ -124,7 +124,7 @@ background-position: center;
   outline: none;
 }
 
-.Main input:focus {
+.Main--input:focus {
   border-bottom-color: var(--black-color);
 }
 
@@ -206,6 +206,7 @@ form .btn-container {
 
 .Weather {
   color: var(--lightgray-color);
+  cursor: pointer;
 }
 
 .Weather--container {
@@ -245,6 +246,38 @@ h2.Weather--description {
 .Weather .temp {
   font-size: 32px;
   font-weight: 300;
+}
+
+.Weather form {
+  height: 60px;
+}
+
+.Weather--input {
+  color: rgba(82, 82, 82, 0.75);
+  border-bottom: .5px solid rgba(0,0,0,0.8);
+  /* border-bottom: .5px solid red; */
+  /* font-size: 10px; */
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 100;
+  border: none;
+  border-bottom: 0.5px solid var(--lightgray-color);
+  resize: none;
+  text-align: center;
+  outline: none;
+  height: 30px;
+  background: rgba(0,0,0,0);
+}
+
+.Weather--input:focus {
+  border-bottom-color: var(--gray-color);
+}
+
+.Weather--input__btn {
+  font-size: 0.75rem;
+  margin: 0;
+  color: rgba(82, 82, 82, 0.5);
+  background-color: rgba(0,0,0,0);
 }
 
 
@@ -380,7 +413,7 @@ h2.Weather--description {
 }
 
 @media (max-width: 1080px) {
-  .Main input {
+  .Main--input {
     font-size: 1.8rem;
   }
 
@@ -482,7 +515,7 @@ h2.Weather--description {
     grid-template-rows: 50% 50%;
   }
 
-  .Main input {
+  .Main--input {
     font-size: 1.4rem;
     height: 45px;
   }
