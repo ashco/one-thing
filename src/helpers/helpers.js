@@ -1,9 +1,10 @@
 import moment from 'moment';
 import axios from 'axios';
-require('dotenv').config();
+// require('dotenv').config();
 
 const urlStart = 'https://api.openweathermap.org/data/2.5/weather?q=';
-const apiKey = process.env.API_KEY;
+// const apiKey = process.env.API_KEY;
+const apiKey = 'd706246e45952ae604390e0e530c6603';
 
 // TIME
 export function getCurrentUnix () {
@@ -58,9 +59,7 @@ export function updateLocalStorage (data) {
 export function autoFontSize () {
   const cards = Array.from(document.querySelectorAll('.CardMain'));
 
-  if (cards < 0) {
-    return;
-  }
+  if (cards < 0) { return; }
 
   cards.forEach(card => {
     const cardHeight = card.offsetHeight;

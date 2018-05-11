@@ -19,32 +19,81 @@ import svg13n from '../images/weather-icons/13n.svg';
 import svg50d from '../images/weather-icons/50d.svg';
 import svg50n from '../images/weather-icons/50n.svg';
 
+
+class WeatherInput extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      input: '',
+    }
+  }
+
+  handleChange = (event) => {
+    const value = event.target.value;
+
+    if (value.length >= 40) {
+      console.log('Character Limit Reached');
+      return;
+    }
+    this.setState({ input: value });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { input } = this.state;
+    const { updateLocation, updateWeather } = this.props;
+
+    updateLocation(input);
+  }
+
+  render() {
+    return (
+      <div>
+        <form className='column' onSubmit={this.handleSubmit}>
+          <input
+            className='Weather--input'
+            type="text"
+            onChange={this.handleChange}/>
+          <button className='Weather--input__btn' type='submit'>Set Location</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+
 class Weather extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      location: 'Seattle',
+      location: '',
       weatherObj: null,
       img: null,
       svgArr: [svg01d, svg01n, svg02d, svg02n, svg03d, svg03n, svg04d, svg04n, svg09d, svg09n, svg10d, svg10n, svg11d, svg11n, svg13d, svg13n, svg50d, svg50n],
     }
   }
 
-  handleWeather = () => {
-    const { location } = this.state;
-    getWeather(location)
-      .then(data => {
-        console.log(data);
-        this.setState({ weatherObj: data });
-        this.createImg(data.icon);
-      })
-      .catch(error => {
-        console.log(error);
-        return;
-      });
+  handleLocation = (location) => {
+    this.setState({ location }, this.handleWeather);
   }
 
-  createImg (icon) {
+  handleWeather = () => {
+    const { location } = this.state;
+
+    if (location) {
+      getWeather(location)
+        .then(data => {
+          this.setState({ weatherObj: data });
+          this.createImg(data.icon);
+        })
+        .catch(error => {
+          console.log(error);
+          return;
+        });
+    }
+  }
+
+  createImg = (icon) => {
     const { svgArr } = this.state;
     const index = svgArr.findIndex(img => img.includes(icon));
     const img = svgArr[index];
@@ -52,7 +101,7 @@ class Weather extends React.Component {
     this.setState({ img });
   }
 
-  componentDidMount () {
+  componentDidMount = () => {
     this.handleWeather();
   }
 
@@ -61,11 +110,12 @@ class Weather extends React.Component {
 
     return (
       <div className='Weather'>
-      {!weatherObj
-        ? <div className='Weather--container'>
+        {location && !weatherObj &&
+          <div className='Weather--container'>
             <h2 className='loading'>Loading</h2>
-          </div>
-        : <div className='Weather--container'>
+          </div>}
+        {location && weatherObj &&
+          <div className='Weather--container'>
             <img src={img} alt={weatherObj.main}/>
             <div className='Weather--textbox'>
               <h2 className='Weather--description'>{capitalizer(weatherObj.description)}</h2>
@@ -73,6 +123,11 @@ class Weather extends React.Component {
             </div>
             <p className="temp">{Math.floor(weatherObj.temp * 1.8 - 459.67)}&#176;</p>
           </div>}
+        {!location &&
+          <WeatherInput
+            updateLocation={this.handleLocation}
+            updateWeather={this.handleWeather} />
+        }
       </div>
     );
   }
