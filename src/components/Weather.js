@@ -1,5 +1,5 @@
 import React from 'react';
-import { getWeather, capitalizer } from '../helpers/helpers';
+import { getWeather, capitalizer, getLocalStorage, updateLocalStorage } from '../helpers/helpers';
 import svg01d from '../images/weather-icons/01d.svg';
 import svg01n from '../images/weather-icons/01n.svg';
 import svg02d from '../images/weather-icons/02d.svg';
@@ -64,7 +64,7 @@ class Weather extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      location: '',
+      location: 'Seattle',
       weatherObj: null,
       img: null,
       svgArr: [svg01d, svg01n, svg02d, svg02n, svg03d, svg03n, svg04d, svg04n, svg09d, svg09n, svg10d, svg10n, svg11d, svg11n, svg13d, svg13n, svg50d, svg50n],
@@ -78,10 +78,12 @@ class Weather extends React.Component {
       weatherObj: null,
       img: null,
     });
+    updateLocalStorage('location', this.state.location);
   }
 
   handleLocation = (location) => {
     this.setState({ location }, this.handleWeather);
+    updateLocalStorage('location', this.state.location);
   }
 
   handleWeather = () => {
@@ -113,6 +115,10 @@ class Weather extends React.Component {
   }
 
   componentDidMount = () => {
+    const location = getLocalStorage('location') || 'Seattle';
+
+    console.log(location);
+    // this.setState({ location });
     this.handleWeather();
     document.querySelector('.Weather').addEventListener('pointerover', this.addHover);
     document.querySelector('.Weather').addEventListener('pointerout', this.removeHover);

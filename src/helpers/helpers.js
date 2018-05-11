@@ -47,12 +47,12 @@ export function streakCalc (data) {
 }
 
 // Local Storage
-export function setLocalStorage () {
-  return JSON.parse(localStorage.getItem('data')) || [];
+export function getLocalStorage (key) {
+  return JSON.parse(localStorage.getItem(key)) || [];
 }
 
-export function updateLocalStorage (data) {
-  localStorage.setItem('data', JSON.stringify(data));
+export function updateLocalStorage (key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
 }
 
 // Element Manipulation
