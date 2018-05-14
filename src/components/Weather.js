@@ -64,7 +64,6 @@ class Weather extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      location: 'Seattle',
       weatherObj: null,
       img: null,
       svgArr: [svg01d, svg01n, svg02d, svg02n, svg03d, svg03n, svg04d, svg04n, svg09d, svg09n, svg10d, svg10n, svg11d, svg11n, svg13d, svg13n, svg50d, svg50n],
@@ -83,7 +82,7 @@ class Weather extends React.Component {
 
   handleLocation = (location) => {
     this.setState({ location }, this.handleWeather);
-    updateLocalStorage('location', this.state.location);
+    updateLocalStorage('location', location);
   }
 
   handleWeather = () => {
@@ -116,10 +115,8 @@ class Weather extends React.Component {
 
   componentDidMount = () => {
     const location = getLocalStorage('location') || 'Seattle';
+    this.setState({ location }, () => this.handleWeather());
 
-    console.log(location);
-    // this.setState({ location });
-    this.handleWeather();
     document.querySelector('.Weather').addEventListener('pointerover', this.addHover);
     document.querySelector('.Weather').addEventListener('pointerout', this.removeHover);
     document.querySelector('.Weather').addEventListener('click', this.removeLocation);
@@ -148,7 +145,7 @@ class Weather extends React.Component {
               <h2 className='Weather--description'>{capitalizer(weatherObj.description)}</h2>
               {hover
                 ? <h3 className='location'>- Remove? -</h3>
-                : <h3 className='location'>- {capitalizer(location)} -</h3>}
+                : <h3 className='location'>- {capitalizer(weatherObj.name)} -</h3>}
             </div>
             <p className="temp">{Math.floor(weatherObj.temp * 1.8 - 459.67)}&#176;</p>
           </div>}

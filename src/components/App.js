@@ -73,7 +73,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    let data = getLocalStorage('data');
+    let data = getLocalStorage('data') || [];
     this.setState({ data })
 
     this.windowActivator();
