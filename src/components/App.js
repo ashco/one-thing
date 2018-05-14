@@ -103,6 +103,7 @@ class App extends Component {
       <div className="App">
         {activeMain &&
           <Main
+            className='Main'
             currentUnix={currentUnix}
             todayTodo={todayTodo}
             streak={streak}
