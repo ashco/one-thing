@@ -3,6 +3,7 @@ import axios from 'axios';
 // require('dotenv').config();
 
 const urlStart = 'https://api.openweathermap.org/data/2.5/weather?q=';
+// const apiKey = process.env.API_KEY;
 const apiKey = 'd706246e45952ae604390e0e530c6603';
 
 // TIME
@@ -45,22 +46,24 @@ export function streakCalc (data) {
   return i;
 }
 
+
 // Local Storage
-export function setLocalStorage () {
-  return JSON.parse(localStorage.getItem('data')) || [];
+export function getLocalStorage (key) {
+  return JSON.parse(localStorage.getItem(key));
 }
 
-export function updateLocalStorage (data) {
-  localStorage.setItem('data', JSON.stringify(data));
+export function updateLocalStorage (key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
 }
+
+
+
 
 // Element Manipulation
 export function autoFontSize () {
   const cards = Array.from(document.querySelectorAll('.CardMain'));
 
-  if (cards < 0) {
-    return;
-  }
+  if (cards < 0) { return; }
 
   cards.forEach(card => {
     const cardHeight = card.offsetHeight;
@@ -107,6 +110,8 @@ export function centerHeader () {
   }
 }
 
+
+// WEATHER
 export function getWeatherData (location) {
   return axios.get(urlStart + location + '&APPID=' + apiKey)
     .then((response) => {

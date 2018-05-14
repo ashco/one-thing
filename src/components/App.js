@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Main from './Main';
 import History from './History';
-import { getCurrentUnix, sameDateCheck, streakCalc, setLocalStorage, updateLocalStorage } from '../helpers/helpers';
+import { getCurrentUnix, sameDateCheck, streakCalc, getLocalStorage, updateLocalStorage } from '../helpers/helpers';
 
 
 class App extends Component {
@@ -44,7 +44,7 @@ class App extends Component {
         status
       }, ...this.state.data]
     }));
-    updateLocalStorage(this.state.data);
+    updateLocalStorage('data', this.state.data);
   }
 
   handleDelete = (index) => {
@@ -53,7 +53,7 @@ class App extends Component {
 
     this.setState(() => ({ data: newState }));
 
-    updateLocalStorage(this.state.data);
+    updateLocalStorage('data', this.state.data);
   }
 
   handleComplete = (index) => {
@@ -62,7 +62,7 @@ class App extends Component {
 
     this.setState(() => ({ data: newState }))
 
-    updateLocalStorage(this.state.data);
+    updateLocalStorage('data', this.state.data);
   }
 
   handleStreak = () => {
@@ -73,8 +73,8 @@ class App extends Component {
   }
 
   componentDidMount () {
-    let data = setLocalStorage();
-    this.setState({ data: data })
+    let data = getLocalStorage('data') || [];
+    this.setState({ data })
 
     this.windowActivator();
     this.handleStreak();
@@ -103,6 +103,7 @@ class App extends Component {
       <div className="App">
         {activeMain &&
           <Main
+            className='Main'
             currentUnix={currentUnix}
             todayTodo={todayTodo}
             streak={streak}

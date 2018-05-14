@@ -111,7 +111,7 @@ class Form extends React.Component {
       console.log('Character Limit Reached');
       return;
     }
-    this.setState(() => ({ input: value }));
+    this.setState({ input: value });
   }
 
   handleSubmit = (event) => {
@@ -149,6 +149,7 @@ class Form extends React.Component {
     return (
       <form className='column' onSubmit={this.handleSubmit}>
         <input
+          className='Main--input'
           type='text'
           id='input'
           placeholder={placeholder}
