@@ -168,7 +168,8 @@ class Card extends React.Component {
     if (deleteBtnHover) {
       borderColor = 'var(--red-trans-color)';
     }
-    else if (completeBtnHover || status) {
+    // else if (completeBtnHover || status) {
+    else if (completeBtnHover) {
       borderColor = 'var(--green-trans-color)';
     }
 
