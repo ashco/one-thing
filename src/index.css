@@ -192,7 +192,6 @@ form .btn-container {
 
 .Main .btn-chk:hover {
   background-color: var(--green-alt-color);
-  /* width: 120px; */
 }
 
 .Main-btn__hover {
@@ -411,12 +410,12 @@ h2.Weather--description {
   background-color: var(--black-alt-color);
 }
 
+.Card.revealed .CardHover {
+  bottom: 0%;
+}
 /* .Card:hover .CardHover {
   bottom: 0%;
 } */
-.Card:active .CardHover {
-  bottom: 0%;
-}
 
 @media (max-width: 1080px) {
   .Main--input {

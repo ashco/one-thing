@@ -19,16 +19,15 @@ import svg13n from '../images/weather-icons/13n.svg';
 import svg50d from '../images/weather-icons/50d.svg';
 import svg50n from '../images/weather-icons/50n.svg';
 
-
 class WeatherInput extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       input: '',
-    }
+    };
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     const value = event.target.value;
 
     if (value.length >= 40) {
@@ -36,39 +35,56 @@ class WeatherInput extends React.Component {
       return;
     }
     this.setState({ input: value });
-  }
+  };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const { input } = this.state;
-    const { updateLocation, updateWeather } = this.props;
+    const { updateLocation } = this.props;
 
     updateLocation(input);
-  }
+  };
 
   render() {
     return (
-      <form className='column' onSubmit={this.handleSubmit}>
-        <input
-          className='Weather--input'
-          type="text"
-          onChange={this.handleChange}/>
-        <button className='Weather--input__btn' type='submit'>- Set Location -</button>
+      <form className="column" onSubmit={this.handleSubmit}>
+        <input className="Weather--input" type="text" onChange={this.handleChange} />
+        <button className="Weather--input__btn" type="submit">
+          - Set Location -
+        </button>
       </form>
     );
   }
 }
 
-
 class Weather extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       weatherObj: null,
       img: null,
-      svgArr: [svg01d, svg01n, svg02d, svg02n, svg03d, svg03n, svg04d, svg04n, svg09d, svg09n, svg10d, svg10n, svg11d, svg11n, svg13d, svg13n, svg50d, svg50n],
+      svgArr: [
+        svg01d,
+        svg01n,
+        svg02d,
+        svg02n,
+        svg03d,
+        svg03n,
+        svg04d,
+        svg04n,
+        svg09d,
+        svg09n,
+        svg10d,
+        svg10n,
+        svg11d,
+        svg11n,
+        svg13d,
+        svg13n,
+        svg50d,
+        svg50n,
+      ],
       hover: false,
-    }
+    };
   }
 
   removeLocation = () => {
@@ -78,12 +94,12 @@ class Weather extends React.Component {
       img: null,
     });
     updateLocalStorage('location', this.state.location);
-  }
+  };
 
-  handleLocation = (location) => {
+  handleLocation = location => {
     this.setState({ location }, this.handleWeather);
     updateLocalStorage('location', location);
-  }
+  };
 
   handleWeather = () => {
     const { location } = this.state;
@@ -99,19 +115,19 @@ class Weather extends React.Component {
           return;
         });
     }
-  }
+  };
 
   addHover = () => this.setState({ hover: true });
 
   removeHover = () => this.setState({ hover: false });
 
-  createImg = (icon) => {
+  createImg = icon => {
     const { svgArr } = this.state;
     const index = svgArr.findIndex(img => img.includes(icon));
     const img = svgArr[index];
 
     this.setState({ img });
-  }
+  };
 
   componentDidMount = () => {
     const location = getLocalStorage('location') || 'Seattle';
@@ -120,40 +136,40 @@ class Weather extends React.Component {
     document.querySelector('.Weather').addEventListener('pointerover', this.addHover);
     document.querySelector('.Weather').addEventListener('pointerout', this.removeHover);
     document.querySelector('.Weather').addEventListener('click', this.removeLocation);
-  }
+  };
 
   componentWillUnmount = () => {
     this.handleWeather();
     document.querySelector('.Weather').removeEventListener('pointerover', this.addHover);
     document.querySelector('.Weather').removeEventListener('pointerout', this.removeHover);
     document.querySelector('.Weather').removeEventListener('click', this.removeLocation);
-  }
+  };
 
-  render () {
+  render() {
     const { location, weatherObj, img, hover } = this.state;
 
     return (
-      <div className='Weather'>
-        {location && !weatherObj &&
-          <div className='Weather--container'>
-            <h2 className='loading'>Loading</h2>
-          </div>}
-        {location && weatherObj &&
-          <div className='Weather--container'>
-            <img src={img} alt={weatherObj.main}/>
-            <div className='Weather--textbox'>
-              <h2 className='Weather--description'>{capitalizer(weatherObj.description)}</h2>
-              {hover
-                ? <h3 className='location'>- Remove? -</h3>
-                : <h3 className='location'>- {capitalizer(weatherObj.name)} -</h3>}
+      <div className="Weather">
+        {location && !weatherObj && (
+          <div className="Weather--container">
+            <h2 className="loading">Loading</h2>
+          </div>
+        )}
+        {location && weatherObj && (
+          <div className="Weather--container">
+            <img src={img} alt={weatherObj.main} />
+            <div className="Weather--textbox">
+              <h2 className="Weather--description">{capitalizer(weatherObj.description)}</h2>
+              {hover ? (
+                <h3 className="location">- Remove? -</h3>
+              ) : (
+                <h3 className="location">- {capitalizer(weatherObj.name)} -</h3>
+              )}
             </div>
             <p className="temp">{Math.floor(weatherObj.temp * 1.8 - 459.67)}&#176;</p>
-          </div>}
-        {!location &&
-          <WeatherInput
-            updateLocation={this.handleLocation}
-            updateWeather={this.handleWeather} />
-        }
+          </div>
+        )}
+        {!location && <WeatherInput updateLocation={this.handleLocation} />}
       </div>
     );
   }

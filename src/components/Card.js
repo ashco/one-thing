@@ -2,24 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatCard } from '../helpers/helpers';
 
-function CardMain (props) {
+function CardMain(props) {
   const { unix, text } = props;
   const date = formatCard(unix);
 
   return (
-    <div className='CardMain'>
-      <h3 className='CardMain--textbox'>{text}</h3>
-      <p className='CardMain--date'>-{date}</p>
+    <div className="CardMain">
+      <h3 className="CardMain--textbox">{text}</h3>
+      <p className="CardMain--date">-{date}</p>
     </div>
-  )
+  );
 }
 
 CardMain.propTypes = {
   unix: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired
-}
+  text: PropTypes.string.isRequired,
+};
 
-function CardHoverComplete (props) {
+function CardHoverComplete(props) {
   const { deleteBtnHover, handleDeleteBtnHover, handleDelete } = props;
 
   return (
@@ -30,34 +30,40 @@ function CardHoverComplete (props) {
           className={`btn-small ${!deleteBtnHover ? 'btn-chk' : 'btn-del'}`}
           onMouseEnter={handleDeleteBtnHover}
           onMouseLeave={handleDeleteBtnHover}
-          onClick={handleDelete}>
+          onClick={handleDelete}
+        >
           ✕
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 CardHoverComplete.propTypes = {
   deleteBtnHover: PropTypes.bool.isRequired,
   handleDeleteBtnHover: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired
-}
+  handleDelete: PropTypes.func.isRequired,
+};
 
-
-function CardHoverIncomplete (props) {
-  const { completeBtnHover, deleteBtnHover, handleCompleteBtnHover, handleDeleteBtnHover, handleComplete, handleDelete } = props;
+function CardHoverIncomplete(props) {
+  const {
+    completeBtnHover,
+    deleteBtnHover,
+    handleCompleteBtnHover,
+    handleDeleteBtnHover,
+    handleComplete,
+    handleDelete,
+  } = props;
 
   const btn = {
     title: 'Busy?',
-    cardStyle: ''
-  }
+    cardStyle: '',
+  };
 
   if (completeBtnHover) {
     btn.title = 'Complete!';
     btn.cardStyle = 'CardHover--complete';
-  }
-  else if (deleteBtnHover) {
+  } else if (deleteBtnHover) {
     btn.title = 'Delete?';
     btn.cardStyle = 'CardHover--delete';
   }
@@ -67,24 +73,25 @@ function CardHoverIncomplete (props) {
       <h2>{btn.title}</h2>
       <div className="CardHover--btn-container">
         <button
-          className='btn-small btn-chk'
+          className="btn-small btn-chk"
           onMouseEnter={handleCompleteBtnHover}
           onMouseLeave={handleCompleteBtnHover}
-          onClick={handleComplete}>
+          onClick={handleComplete}
+        >
           ✓
         </button>
         <button
-          className='btn-small btn-del'
+          className="btn-small btn-del"
           onMouseEnter={handleDeleteBtnHover}
           onMouseLeave={handleDeleteBtnHover}
-          onClick={handleDelete}>
+          onClick={handleDelete}
+        >
           ✕
         </button>
       </div>
     </div>
-  )
+  );
 }
-
 
 CardHoverIncomplete.propTypes = {
   completeBtnHover: PropTypes.bool.isRequired,
@@ -92,46 +99,54 @@ CardHoverIncomplete.propTypes = {
   handleCompleteBtnHover: PropTypes.func.isRequired,
   handleDeleteBtnHover: PropTypes.func.isRequired,
   handleComplete: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired
-}
-
+  handleDelete: PropTypes.func.isRequired,
+};
 
 class CardHover extends React.Component {
-
-  handleComplete = (event) => {
+  handleComplete = event => {
     event.preventDefault();
     const { index, handleStreak, onComplete } = this.props;
 
     onComplete(index);
     handleStreak();
-  }
+  };
 
-  handleDelete = (event) => {
+  handleDelete = event => {
     event.preventDefault();
     const { index, handleStreak, onDelete } = this.props;
 
     onDelete(index);
     handleStreak();
-  }
+  };
 
-  render () {
-    const { status, completeBtnHover, deleteBtnHover, handleCompleteBtnHover, handleDeleteBtnHover } = this.props;
+  render() {
+    const {
+      status,
+      completeBtnHover,
+      deleteBtnHover,
+      handleCompleteBtnHover,
+      handleDeleteBtnHover,
+    } = this.props;
 
     if (status) {
-      return <CardHoverComplete
-        deleteBtnHover={deleteBtnHover}
-        handleDeleteBtnHover={handleDeleteBtnHover}
-        handleDelete={this.handleDelete} />
-    }
-    else if (!status) {
-      return <CardHoverIncomplete
-        completeBtnHover={completeBtnHover}
-        deleteBtnHover={deleteBtnHover}
-        handleCompleteBtnHover={handleCompleteBtnHover}
-        handleDeleteBtnHover={handleDeleteBtnHover}
-        handleComplete={this.handleComplete}
-        handleDelete={this.handleDelete}
+      return (
+        <CardHoverComplete
+          deleteBtnHover={deleteBtnHover}
+          handleDeleteBtnHover={handleDeleteBtnHover}
+          handleDelete={this.handleDelete}
         />
+      );
+    } else if (!status) {
+      return (
+        <CardHoverIncomplete
+          completeBtnHover={completeBtnHover}
+          deleteBtnHover={deleteBtnHover}
+          handleCompleteBtnHover={handleCompleteBtnHover}
+          handleDeleteBtnHover={handleDeleteBtnHover}
+          handleComplete={this.handleComplete}
+          handleDelete={this.handleDelete}
+        />
+      );
     }
   }
 }
@@ -144,24 +159,33 @@ CardHover.propTypes = {
   handleCompleteBtnHover: PropTypes.func.isRequired,
   handleDeleteBtnHover: PropTypes.func.isRequired,
   onComplete: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
-}
+  onDelete: PropTypes.func.isRequired,
+};
 
 class Card extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state =  ({
+    this.state = {
+      revealed: false,
       completeBtnHover: false,
       deleteBtnHover: false,
-    })
+    };
   }
 
-  handleCompleteBtnHover = () => this.setState(() => ({ completeBtnHover: !this.state.completeBtnHover }));
+  toggleRevealed = () => {
+    this.setState({
+      revealed: !this.state.revealed,
+    });
+  };
 
-  handleDeleteBtnHover = () => this.setState(() => ({ deleteBtnHover: !this.state.deleteBtnHover }));
+  handleCompleteBtnHover = () =>
+    this.setState(() => ({ completeBtnHover: !this.state.completeBtnHover }));
 
-  render () {
-    const { completeBtnHover, deleteBtnHover } = this.state;
+  handleDeleteBtnHover = () =>
+    this.setState(() => ({ deleteBtnHover: !this.state.deleteBtnHover }));
+
+  render() {
+    const { revealed, completeBtnHover, deleteBtnHover } = this.state;
     const { index, todayTodo, unix, text, status, handleStreak, onComplete, onDelete } = this.props;
     let borderColor = 'var(--black-trans-color)';
 
@@ -175,15 +199,14 @@ class Card extends React.Component {
 
     if (index === 0 && todayTodo === 'incomplete') {
       return '';
-    }
-    else {
+    } else {
       return (
         <div
-          className='Card'
-          style={{borderColor: borderColor}}>
-          <CardMain
-            unix={unix}
-            text={text} />
+          className={`Card ${revealed ? 'revealed' : undefined}`}
+          style={{ borderColor: borderColor }}
+          onClick={this.toggleRevealed}
+        >
+          <CardMain unix={unix} text={text} />
           <CardHover
             index={index}
             status={status}
@@ -193,25 +216,22 @@ class Card extends React.Component {
             handleCompleteBtnHover={this.handleCompleteBtnHover}
             handleDeleteBtnHover={this.handleDeleteBtnHover}
             onComplete={onComplete}
-            onDelete={onDelete} />
+            onDelete={onDelete}
+          />
         </div>
-      )
+      );
     }
   }
 }
 
-
 Card.propTypes = {
   index: PropTypes.number.isRequired,
-  todayTodo: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool
-  ]),
+  todayTodo: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   unix: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   status: PropTypes.bool.isRequired,
   onComplete: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
-}
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default Card;
